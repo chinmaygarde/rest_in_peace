@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
-  s.date = %q{2010-02-19}
+  s.date = %q{2010-02-20}
   s.description = %q{Easily expose database entities as REST resources}
   s.email = %q{chinmaygarde@gmail.com}
   s.extra_rdoc_files = [
@@ -18,11 +18,16 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "LICENSE",
      "README.markdown",
+     "Rakefile",
      "VERSION",
      "lib/rested_db.rb",
      "lib/rested_db/model_generator.rb",
-     "lib/rested_db/templates/model.rb.erb"
+     "lib/rested_db/templates/model.rb.erb",
+     "rested_db.gemspec",
+     "test/helper.rb",
+     "test/test_rested_db.rb"
   ]
   s.homepage = %q{http://github.com/chinmaygarde/rested_db}
   s.rdoc_options = ["--charset=UTF-8"]

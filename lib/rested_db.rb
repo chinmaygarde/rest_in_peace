@@ -1,10 +1,12 @@
-libdir = File.dirname(__FILE__)
-$LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
-
-require 'rubygems'
-require 'dm-core'
-require 'rested_db/model_generator'
-
+class RestedDB
+  
+  autoload :ModelGenerator, 'rested_db/model_generator'
+  
+  def test_generator
+    ModelGenerator.generate("Post id:integer name:string profession:string")
+  end
+  
+end
 #DataMapper::Logger.new($stdout, :debug)
 #DataMapper.setup(:default, "sqlite3::memory:")
 #
@@ -29,5 +31,3 @@ require 'rested_db/model_generator'
 #end
 #
 #DataMapper.auto_migrate!
-
-ModelGenerator.generate("Post id:integer name:string profession:string")

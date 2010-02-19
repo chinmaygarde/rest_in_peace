@@ -13,13 +13,14 @@ class ModelGenerator
     b = ModelViewBinding.new
     b.model_name = model_name
     b.columns = columns
-    model_string = ERB.new(File.open('rested_db/templates/model.rb.erb').read).result(b.get_binding)
+    model_string = ERB.new(File.open("#{File.dirname(__FILE__)}/templates/model.rb.erb").read).result(b.get_binding)
 
-    file_path = "~/Desktop/dev/#{model_name.capitalize}.rb"
+    file_path = "/Users/Buzzy/Desktop/dev/#{model_name.capitalize}.rb"
 
     if File.exists?(file_path)
       p "#{model_name.capitalize}.rb already exists. Migration Skipped."
     else
+      p "#{model_name.capitalize}.rb created."
       outfile = File.open(file_path, "w")
       outfile << model_string
       outfile.close
