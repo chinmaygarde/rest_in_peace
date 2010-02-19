@@ -15,7 +15,7 @@ class ModelGenerator
     b.columns = columns
     model_string = ERB.new(File.open('rested_db/templates/model.rb.erb').read).result(b.get_binding)
 
-    file_path = "dev/#{model_name.capitalize}.rb"
+    file_path = "~/Desktop/dev/#{model_name.capitalize}.rb"
 
     if File.exists?(file_path)
       p "#{model_name.capitalize}.rb already exists. Migration Skipped."
