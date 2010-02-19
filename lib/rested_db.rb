@@ -1,9 +1,9 @@
 class RestedDB
   
-  autoload :ModelGenerator, 'rested_db/model_generator'
+  autoload :ModelGenerator, 'rested_db/generator'
   
   def test_generator
-    ModelGenerator.generate("Post id:integer name:string profession:string")
+    Generator.generate("Post id:integer name:string profession:string")
   end
   
 end

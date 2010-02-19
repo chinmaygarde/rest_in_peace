@@ -1,7 +1,7 @@
 require 'erb'
 
-class ModelGenerator
-  def ModelGenerator.generate(args_string)
+class Generator
+  def generate_model(args_string)
     
     args = args_string.split(' ')
     model_name = args[0]

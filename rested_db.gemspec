@@ -10,8 +10,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
   s.date = %q{2010-02-20}
+  s.default_executable = %q{rested}
   s.description = %q{Easily expose database entities as REST resources}
   s.email = %q{chinmaygarde@gmail.com}
+  s.executables = ["rested"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.markdown"
