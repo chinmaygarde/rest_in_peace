@@ -2,6 +2,7 @@ require 'erb'
 
 class ModelGenerator
   def ModelGenerator.generate(args_string)
+    
     args = args_string.split(' ')
     model_name = args[0]
     columns = Hash.new
@@ -13,7 +14,17 @@ class ModelGenerator
     b.model_name = model_name
     b.columns = columns
     model_string = ERB.new(File.open('rested_db/templates/model.rb.erb').read).result(b.get_binding)
-    p model_string
+
+    file_path = "dev/#{model_name.capitalize}.rb"
+
+    if File.exists?(file_path)
+      p "#{model_name.capitalize}.rb already exists. Migration Skipped."
+    else
+      outfile = File.open(file_path, "w")
+      outfile << model_string
+      outfile.close
+    end
+
   end
 end
 
