@@ -1,0 +1,6 @@
+class <%= @model_name.capitalize %>
+	include DataMapper::Resource
+	<% @columns.each do |key, value| %>
+		property :<%= key %>, <%= value.capitalize %>
+	<% end %>
+end
