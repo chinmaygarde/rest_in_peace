@@ -1,9 +1,10 @@
 class RestedDB
+  autoload :Generator, 'rested_db/generator'  
   
-  autoload :ModelGenerator, 'rested_db/generator'
-  
-  def test_generator
-    Generator.generate("Post id:integer name:string profession:string")
+  def create_project
+    g = Generator.new("/Users/Buzzy/Desktop/projrested")
+    g.generate_project
+    g.generate_model("Post id:integer name:string profession:string")
   end
   
 end

@@ -24,9 +24,11 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "bin/rested",
      "lib/rested_db.rb",
-     "lib/rested_db/model_generator.rb",
+     "lib/rested_db/generator.rb",
      "lib/rested_db/templates/model.rb.erb",
+     "lib/rested_db/templates/readme.txt.erb",
      "rested_db.gemspec",
      "test/helper.rb",
      "test/test_rested_db.rb"
