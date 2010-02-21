@@ -80,10 +80,13 @@ class Generator
     
   end
   
-  def generate_project_template
+  def generate_controller(name)
+    controller_name = name
+    
     
   end
-  
+
+  end
   
 end
 
