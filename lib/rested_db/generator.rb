@@ -3,19 +3,20 @@ require 'erb'
 class Generator
 
   attr_accessor :project_root, :app_directory, :controller_directory, :model_directory,
-                :view_directory, :log_directory, :config_directory, :template_directory
+                :view_directory, :log_directory, :config_directory, :template_directory,
+                :script_directory
 
   def initialize(root_dir)
     
     # Project Specific Paths
-    self.project_root = root_dir
+    self.project_root = File.expand_path(root_dir)
     self.app_directory = File.join(root_dir, "app")
     self.controller_directory = File.join(app_directory, "controllers")
     self.model_directory = File.join(app_directory, "models")
     self.view_directory = File.join(app_directory, "views")
     self.log_directory = File.join(project_root, "log")
     self.config_directory = File.join(project_root, "config")
-    
+    self.script_directory = File.join(project_root, "script")
     # Gem Specific Paths
     self.template_directory = File.join("#{File.dirname(__FILE__)}", "templates")
   end
@@ -34,15 +35,24 @@ class Generator
     FileUtils.mkdir(view_directory)
     FileUtils.mkdir(log_directory)
     FileUtils.mkdir(config_directory)
-
+    FileUtils.mkdir(script_directory)
+    
     File.open(File.join(project_root, "README"), "w") << File.open(File.join(template_directory, "readme.txt.erb")).read
+
+    define_file = File.open(File.join(script_directory, "define"), "w")
+    define_file << File.open(File.join(template_directory, "script", "define")).read
+
+    server_file = File.open(File.join(script_directory, "server"), "w")
+    server_file << File.open(File.join(template_directory, "script", "server")).read
+    
+    
+    File.chmod(0755, define_file.path, server_file.path)
     
     puts "You database is ready to REST."
   end
 
-  def generate_model(args_string)
-    
-    args = args_string.split(' ')
+  def generate_model(*args)
+
     model_name = args[0]
     columns = Hash.new
 

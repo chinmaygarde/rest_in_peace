@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'rested_db/generator'
+
+project_path = File.expand_path("")
+Generator.new(File.dirname(File.dirname(__FILE__))).generate_model(*ARGV)

@@ -1,13 +1,4 @@
-class RestedDB
-  autoload :Generator, 'rested_db/generator'  
-  
-  def create_project
-    g = Generator.new("/Users/Buzzy/Desktop/projrested")
-    g.generate_project
-    g.generate_model("Post id:integer name:string profession:string")
-  end
-  
-end
+autoload :Generator, 'rested_db/generator'
 #DataMapper::Logger.new($stdout, :debug)
 #DataMapper.setup(:default, "sqlite3::memory:")
 #

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'rested_db/generator'
 
-puts "Your database is tired. Give it some REST."
+Generator.new(*ARGV).generate_project
