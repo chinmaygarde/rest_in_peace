@@ -51,6 +51,11 @@ class Generator
     puts "You database is ready to REST."
   end
 
+  def generate_scaffold(*args)
+    generate_model(*args)
+    generate_controller(args[0])
+  end
+
   def generate_model(*args)
 
     model_name = args[0]
@@ -70,9 +75,9 @@ class Generator
     file_path = File.join(model_directory, "#{model_name.capitalize}.rb")
 
     if File.exists?(file_path)
-      puts "#{model_name.capitalize}.rb already exists. Migration Skipped."
+      puts "Model #{model_name.capitalize}.rb already exists. Migration Skipped."
     else
-      puts "#{model_name.capitalize}.rb created."
+      puts "Model #{model_name.capitalize}.rb created."
       outfile = File.open(file_path, "w")
       outfile << model_string
       outfile.close
@@ -81,18 +86,39 @@ class Generator
   end
   
   def generate_controller(name)
-    controller_name = name
+
+    b = ControllerViewBinding.new
+    b.controller_name = name
     
+    controller_string = ERB.new(File.open( File.join(template_directory, "controller.rb.erb") ).read).result(b.get_binding)
+    file_path = File.join(controller_directory, "#{name.capitalize}.rb")
     
-  end
+    if(File.exists?(file_path))
+      puts "Controller #{name.capitalize}.rb already exists. Migration Skipped."
+    else
+      puts "Controller #{name.capitalize}.rb created."
+      outfile = File.open(file_path, "w")
+      outfile << controller_string
+      outfile.close
+    end
 
   end
-  
+    
 end
 
 class ModelViewBinding
   
   attr_accessor :model_name, :columns
+  
+  def get_binding
+    binding
+  end
+  
+end
+
+class ControllerViewBinding
+  
+  attr_accessor :controller_name
   
   def get_binding
     binding
