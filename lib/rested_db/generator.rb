@@ -21,6 +21,7 @@ class Generator
     FileUtils.mkdir(settings.log_directory)
     FileUtils.mkdir(settings.config_directory)
     FileUtils.mkdir(settings.script_directory)
+    FileUtils.mkdir(settings.database_directory)
     
     File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
 
@@ -30,8 +31,10 @@ class Generator
     server_file = File.open(File.join(settings.script_directory, "server"), "w")
     server_file << File.open(File.join(settings.template_directory, "script", "server")).read
     
-    
-    File.chmod(0755, define_file.path, server_file.path)
+    migration_file = File.open(File.join(settings.script_directory, "migrate"), "w")
+    migration_file << File.open(File.join(settings.template_directory, "script", "migrate")).read
+
+    File.chmod(0755, define_file.path, server_file.path, migration_file.path)
     
     puts "You database is ready to REST."
   end

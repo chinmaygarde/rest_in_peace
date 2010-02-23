@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/rested_db/templates/model.rb.erb",
      "lib/rested_db/templates/readme.txt.erb",
      "lib/rested_db/templates/script/define",
+     "lib/rested_db/templates/script/migrate",
      "lib/rested_db/templates/script/server",
      "rested_db.gemspec",
      "test/helper.rb",
@@ -57,13 +58,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_development_dependency(%q<datamapper>, [">= 0.10.2"])
+      s.add_development_dependency(%q<builder>, [">= 2.2.2"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_dependency(%q<datamapper>, [">= 0.10.2"])
+      s.add_dependency(%q<builder>, [">= 2.2.2"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     s.add_dependency(%q<datamapper>, [">= 0.10.2"])
+    s.add_dependency(%q<builder>, [">= 2.2.2"])
   end
 end
 

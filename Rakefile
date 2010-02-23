@@ -12,6 +12,7 @@ begin
     gem.authors = ["Chinmay Garde"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_development_dependency "datamapper", ">= 0.10.2"
+    gem.add_development_dependency "builder", ">= 2.2.2"    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

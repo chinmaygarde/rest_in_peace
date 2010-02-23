@@ -2,4 +2,4 @@
 require 'rubygems'
 require 'rested_db'
 project_root = File.dirname(File.dirname(__FILE__))
-ServerManager.run(project_root)
+Migration.new.migrate(project_root)

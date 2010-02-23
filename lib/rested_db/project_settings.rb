@@ -2,7 +2,7 @@ class ProjectSettings
   
   attr_accessor :project_root, :app_directory, :controller_directory, :model_directory,
                 :view_directory, :log_directory, :config_directory, :template_directory,
-                :script_directory
+                :script_directory, :database_directory
                 
   def initialize(root_dir)
     
@@ -15,6 +15,8 @@ class ProjectSettings
     self.log_directory = File.join(project_root, "log")
     self.config_directory = File.join(project_root, "config")
     self.script_directory = File.join(project_root, "script")
+    self.database_directory = File.join(project_root, "db")
+    
     # Gem Specific Paths
     self.template_directory = File.join("#{File.dirname(__FILE__)}", "templates")
     
