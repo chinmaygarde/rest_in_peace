@@ -14,23 +14,18 @@ Getting Started
 ---------------
 
 1. Generate the project skeleton
-	
-	rested todo_list
+		rested todo_list
 
 2. Move into the project directory
-
-	cd todo_list
+		cd todo_list
 	
 3. Generate model and controller
-
-	script/define Item name:string completed:boolean
+		script/define Item name:string completed:boolean
 
 4. Migrate database
-
-	script/migrate
+		script/migrate
 
 5. Start server
-
-	script/server
+		script/server
 
 6. Browse to http://localhost:4567/item
