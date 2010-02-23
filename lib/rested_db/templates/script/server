@@ -1,1 +1,2 @@
 #!/usr/bin/env ruby
+require 'rested_db'

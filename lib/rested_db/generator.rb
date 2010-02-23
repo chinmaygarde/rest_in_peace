@@ -1,49 +1,34 @@
-require 'erb'
-
 class Generator
 
-  attr_accessor :project_root, :app_directory, :controller_directory, :model_directory,
-                :view_directory, :log_directory, :config_directory, :template_directory,
-                :script_directory
-
+  attr_accessor :settings
+  
   def initialize(root_dir)
-    
-    # Project Specific Paths
-    self.project_root = File.expand_path(root_dir)
-    self.app_directory = File.join(root_dir, "app")
-    self.controller_directory = File.join(app_directory, "controllers")
-    self.model_directory = File.join(app_directory, "models")
-    self.view_directory = File.join(app_directory, "views")
-    self.log_directory = File.join(project_root, "log")
-    self.config_directory = File.join(project_root, "config")
-    self.script_directory = File.join(project_root, "script")
-    # Gem Specific Paths
-    self.template_directory = File.join("#{File.dirname(__FILE__)}", "templates")
+    self.settings = ProjectSettings.new(root_dir)
   end
 
   def generate_project
     
-    if File.exists?(project_root)
+    if File.exists?(settings.project_root)
       puts "A project with that name already exists. Move that project of change the name of the new one."
       return
     end
     
-    FileUtils.mkdir(project_root)
-    FileUtils.mkdir(app_directory)
-    FileUtils.mkdir(controller_directory)
-    FileUtils.mkdir(model_directory)
-    FileUtils.mkdir(view_directory)
-    FileUtils.mkdir(log_directory)
-    FileUtils.mkdir(config_directory)
-    FileUtils.mkdir(script_directory)
+    FileUtils.mkdir(settings.project_root)
+    FileUtils.mkdir(settings.app_directory)
+    FileUtils.mkdir(settings.controller_directory)
+    FileUtils.mkdir(settings.model_directory)
+    FileUtils.mkdir(settings.view_directory)
+    FileUtils.mkdir(settings.log_directory)
+    FileUtils.mkdir(settings.config_directory)
+    FileUtils.mkdir(settings.script_directory)
     
-    File.open(File.join(project_root, "README"), "w") << File.open(File.join(template_directory, "readme.txt.erb")).read
+    File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
 
-    define_file = File.open(File.join(script_directory, "define"), "w")
-    define_file << File.open(File.join(template_directory, "script", "define")).read
+    define_file = File.open(File.join(settings.script_directory, "define"), "w")
+    define_file << File.open(File.join(settings.template_directory, "script", "define")).read
 
-    server_file = File.open(File.join(script_directory, "server"), "w")
-    server_file << File.open(File.join(template_directory, "script", "server")).read
+    server_file = File.open(File.join(settings.script_directory, "server"), "w")
+    server_file << File.open(File.join(settings.template_directory, "script", "server")).read
     
     
     File.chmod(0755, define_file.path, server_file.path)
@@ -70,9 +55,9 @@ class Generator
     b.model_name = model_name
     b.columns = columns
 
-    model_string = ERB.new(File.open( File.join(template_directory, "model.rb.erb") ).read ).result(b.get_binding)
+    model_string = ERB.new(File.open( File.join(settings.template_directory, "model.rb.erb") ).read ).result(b.get_binding)
 
-    file_path = File.join(model_directory, "#{model_name.capitalize}.rb")
+    file_path = File.join(settings.model_directory, "#{model_name.capitalize}.rb")
 
     if File.exists?(file_path)
       puts "Model #{model_name.capitalize}.rb already exists. Migration Skipped."
@@ -90,8 +75,8 @@ class Generator
     b = ControllerViewBinding.new
     b.controller_name = name
     
-    controller_string = ERB.new(File.open( File.join(template_directory, "controller.rb.erb") ).read).result(b.get_binding)
-    file_path = File.join(controller_directory, "#{name.capitalize}.rb")
+    controller_string = ERB.new(File.open( File.join(settings.template_directory, "controller.rb.erb") ).read).result(b.get_binding)
+    file_path = File.join(settings.controller_directory, "#{name.capitalize}.rb")
     
     if(File.exists?(file_path))
       puts "Controller #{name.capitalize}.rb already exists. Migration Skipped."

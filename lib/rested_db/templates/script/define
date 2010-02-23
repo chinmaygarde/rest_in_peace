@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-require 'rested_db/generator'
-
-project_path = File.expand_path("")
-Generator.new(File.dirname(File.dirname(__FILE__))).generate_scaffold(*ARGV)
+require 'rested_db'
+project_root = File.dirname(File.dirname(__FILE__))
+Generator.new(project_root).generate_scaffold(*ARGV)
