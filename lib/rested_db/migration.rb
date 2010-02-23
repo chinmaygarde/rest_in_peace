@@ -1,4 +1,6 @@
+# TODO: Don't know why I can't remove this !!
 require 'datamapper'
+
 class Migration
   
   def migrate(project_root)
@@ -12,6 +14,7 @@ class Migration
     end
     DataMapper.setup(:default, "sqlite3://#{settings.database_directory}/development.sqlite3")
     DataMapper.auto_migrate!
+    puts "Migrations Complete"
   end
   
 end
