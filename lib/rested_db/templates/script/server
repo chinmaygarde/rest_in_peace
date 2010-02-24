@@ -2,6 +2,5 @@
 require 'rubygems'
 require 'rested_db'
 require 'sinatra'
-require 'sinatra/server'
 project_root = File.dirname(File.dirname(__FILE__))
 ServerManager.new.start_server(project_root)
