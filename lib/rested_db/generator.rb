@@ -91,7 +91,45 @@ class Generator
     end
 
   end
+  
+  def generate_sinatra_app_file
     
+    app_file = File.open(File.join(settings.config_directory, "boot.rb"), "w")
+    
+    app_file << line("require 'datamapper'")
+    app_file << line("require 'sinatra'")
+    
+    # Require all models
+    Dir.foreach(settings.model_directory) do |m|
+      file_path = File.join(settings.model_directory, m)
+      full_path = File.expand_path(file_path)
+      unless File.directory?(full_path)
+        puts "Required #{full_path}"
+        app_file << line("require '#{full_path}'")
+      end
+    end
+
+    # require 'rested_db/helpers'
+    # Load all controllers
+    Dir.foreach(settings.controller_directory) do |c|
+      file_path = File.join(settings.controller_directory, c)
+      full_path = File.expand_path(file_path)
+      unless File.directory?(full_path)
+        puts "Loaded #{full_path}"
+        app_file << line("load '#{full_path}'")
+      end
+    end
+    
+    app_file.close
+    
+  end
+  
+  private
+  
+  def line(str)
+    "#{str}\n"
+  end
+  
 end
 
 class ModelViewBinding
