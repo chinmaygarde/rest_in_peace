@@ -96,38 +96,49 @@ class Generator
     
     app_file = File.open(File.join(settings.config_directory, "boot.rb"), "w")
     
-    app_file << line("require 'datamapper'")
-    app_file << line("require 'sinatra'")
-    
+    #app_file << line("require 'rubygems'")
+    #app_file << line("require 'rested_db'")
+    #app_file << line("require 'datamapper'")
+    #app_file << line("require 'sinatra/base'")
+
+    app_file << line("class ApplicationBase")
     # Require all models
     Dir.foreach(settings.model_directory) do |m|
       file_path = File.join(settings.model_directory, m)
       full_path = File.expand_path(file_path)
-      unless File.directory?(full_path)
+      
+      if File.extname(full_path) == ".rb"
         puts "Required #{full_path}"
-        app_file << line("require '#{full_path}'")
+        app_file << line("require '#{full_path}'", 1)
       end
     end
-
     # require 'rested_db/helpers'
     # Load all controllers
     Dir.foreach(settings.controller_directory) do |c|
       file_path = File.join(settings.controller_directory, c)
       full_path = File.expand_path(file_path)
-      unless File.directory?(full_path)
+      if File.extname(full_path) == ".rb"
         puts "Loaded #{full_path}"
-        app_file << line("load '#{full_path}'")
+        app_file << line("require '#{full_path}'", 1)
       end
     end
-    
+
+    app_file << line("get '/' do", 1)
+      app_file << line("'Hello world!'", 2)
+      app_file << line("end", 1)
+    app_file << line("end")
     app_file.close
     
   end
   
   private
   
-  def line(str)
-    "#{str}\n"
+  def line(str, indent=0)
+    out_str = ""
+    indent.times do
+      out_str = out_str + "\t"
+    end
+    out_str = out_str + str + "\n"
   end
   
 end

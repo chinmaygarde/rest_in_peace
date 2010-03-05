@@ -1,7 +1,7 @@
 class <%= @model_name.capitalize %>
 
 	include DataMapper::Resource
-
+	
     property :id, Serial
 	<% @columns.each do |key, value| %>
 	property :<%= key %>, <%= value.capitalize %>

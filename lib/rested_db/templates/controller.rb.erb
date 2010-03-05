@@ -1,30 +1,32 @@
-get "/<%= @controller_name.downcase %>" do
-  <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.all
-  render <%= @controller_name.downcase %>
-  to_xml(<%= @controller_name.downcase %>)
-end
+class <%= @controller_name.capitalize %> < RestedController
+  get "/<%= @controller_name.downcase %>" do
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.all
+    render <%= @controller_name.downcase %>
+    to_xml(<%= @controller_name.downcase %>)
+  end
 
-get "/<%= @controller_name.downcase %>/:id" do
-  <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.find(params[:id])
-  render <%= @controller_name.downcase %>  
-  to_xml(<%= @controller_name.downcase %>)
-end
+  get "/<%= @controller_name.downcase %>/:id" do
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.find(params[:id])
+    render <%= @controller_name.downcase %>  
+    to_xml(<%= @controller_name.downcase %>)
+  end
 
-post "/<%= @controller_name.downcase %>" do
-  <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-  <%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
-  <%= @controller_name.downcase %>.save
-  to_xml(<%= @controller_name.downcase %>)
-end
+  post "/<%= @controller_name.downcase %>" do
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
+    <%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
+    <%= @controller_name.downcase %>.save
+    to_xml(<%= @controller_name.downcase %>)
+  end
 
-put "/<%= @controller_name.downcase %>/:id" do
-  <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-  <%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
-  to_xml(<%= @controller_name.downcase %>)
-end
+  put "/<%= @controller_name.downcase %>/:id" do
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    <%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
+    to_xml(<%= @controller_name.downcase %>)
+  end
 
-delete "/<%= @controller_name.downcase %>/:id" do
-  <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-  <%= @controller_name.downcase %>.destroy!
-  to_xml(<%= @controller_name.downcase %>)
+  delete "/<%= @controller_name.downcase %>/:id" do
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    <%= @controller_name.downcase %>.destroy!
+    to_xml(<%= @controller_name.downcase %>)
+  end
 end
