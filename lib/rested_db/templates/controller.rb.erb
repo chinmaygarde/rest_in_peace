@@ -1,4 +1,4 @@
-class <%= @controller_name.capitalize %> < RestedController
+class <%= @controller_name.capitalize %>Controller < RestedController
   get "/<%= @controller_name.downcase %>" do
     <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.all
     render <%= @controller_name.downcase %>

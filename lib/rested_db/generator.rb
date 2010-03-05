@@ -60,12 +60,12 @@ class Generator
 
     model_string = ERB.new(File.open( File.join(settings.template_directory, "model.rb.erb") ).read ).result(b.get_binding)
 
-    file_path = File.join(settings.model_directory, "#{model_name.capitalize}.rb")
+    file_path = File.join(settings.model_directory, "#{model_name.capitalize}Model.rb")
 
     if File.exists?(file_path)
-      puts "Model #{model_name.capitalize}.rb already exists. Migration Skipped."
+      puts "Model #{model_name.capitalize}Model.rb already exists. Migration Skipped."
     else
-      puts "Model #{model_name.capitalize}.rb created."
+      puts "Model #{model_name.capitalize}Model.rb created."
       outfile = File.open(file_path, "w")
       outfile << model_string
       outfile.close
@@ -79,12 +79,12 @@ class Generator
     b.controller_name = name
     
     controller_string = ERB.new(File.open( File.join(settings.template_directory, "controller.rb.erb") ).read).result(b.get_binding)
-    file_path = File.join(settings.controller_directory, "#{name.capitalize}.rb")
+    file_path = File.join(settings.controller_directory, "#{name.capitalize}Controller.rb")
     
     if(File.exists?(file_path))
-      puts "Controller #{name.capitalize}.rb already exists. Migration Skipped."
+      puts "Controller #{name.capitalize}Controller.rb already exists. Migration Skipped."
     else
-      puts "Controller #{name.capitalize}.rb created."
+      puts "Controller #{name.capitalize}Controller.rb created."
       outfile = File.open(file_path, "w")
       outfile << controller_string
       outfile.close
@@ -96,6 +96,9 @@ class Generator
     
     app_file = File.open(File.join(settings.config_directory, "config.ru"), "w")
     
+    app_file << line("require 'datamapper'")
+    app_file << line("require 'rested_db'")
+    app_file << line("require 'sinatra/base'")
     # Require all models
     Dir.foreach(settings.model_directory) do |m|
       file_path = File.join(settings.model_directory, m)
@@ -114,14 +117,14 @@ class Generator
       full_path = File.expand_path(file_path)
       if File.extname(full_path) == ".rb"
         puts "Loaded #{full_path}"
-        #app_file << line("require '#{full_path}'", 1)
+        app_file << line("require '#{full_path}'")
         controller_names << File.basename(full_path, File.extname(full_path)).capitalize
       end
     end
     
     controller_names.each do |controller|
-      app_file << line("map \"/#{controller.downcase}\" do")
-      	app_file << line("run #{controller}", 1)
+      app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
+      	app_file << line("run #{controller.gsub("controller", "Controller")}", 1)
       app_file << line("end")
     end
     
