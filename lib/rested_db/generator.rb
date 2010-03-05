@@ -94,14 +94,8 @@ class Generator
   
   def generate_sinatra_app_file
     
-    app_file = File.open(File.join(settings.config_directory, "boot.rb"), "w")
+    app_file = File.open(File.join(settings.config_directory, "config.ru"), "w")
     
-    #app_file << line("require 'rubygems'")
-    #app_file << line("require 'rested_db'")
-    #app_file << line("require 'datamapper'")
-    #app_file << line("require 'sinatra/base'")
-
-    app_file << line("class ApplicationBase")
     # Require all models
     Dir.foreach(settings.model_directory) do |m|
       file_path = File.join(settings.model_directory, m)
@@ -109,24 +103,28 @@ class Generator
       
       if File.extname(full_path) == ".rb"
         puts "Required #{full_path}"
-        app_file << line("require '#{full_path}'", 1)
+        app_file << line("require '#{full_path}'")
       end
     end
-    # require 'rested_db/helpers'
+    
+    controller_names = []
     # Load all controllers
     Dir.foreach(settings.controller_directory) do |c|
       file_path = File.join(settings.controller_directory, c)
       full_path = File.expand_path(file_path)
       if File.extname(full_path) == ".rb"
         puts "Loaded #{full_path}"
-        app_file << line("require '#{full_path}'", 1)
+        #app_file << line("require '#{full_path}'", 1)
+        controller_names << File.basename(full_path, File.extname(full_path)).capitalize
       end
     end
-
-    app_file << line("get '/' do", 1)
-      app_file << line("'Hello world!'", 2)
-      app_file << line("end", 1)
-    app_file << line("end")
+    
+    controller_names.each do |controller|
+      app_file << line("map \"/#{controller.downcase}\" do")
+      	app_file << line("run #{controller}", 1)
+      app_file << line("end")
+    end
+    
     app_file.close
     
   end

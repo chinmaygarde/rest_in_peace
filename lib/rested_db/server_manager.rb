@@ -6,7 +6,7 @@ class ServerManager
     configure_server(settings)
     Generator.new(project_root).generate_sinatra_app_file
     
-    require File.join(settings.config_directory, "boot.rb")
+    #require File.join(settings.config_directory, "boot.rb")
     #ApplicationBase.run!
   end
   
