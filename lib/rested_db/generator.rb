@@ -99,6 +99,7 @@ class Generator
     app_file << line("require 'datamapper'")
     app_file << line("require 'rested_db'")
     app_file << line("require 'sinatra/base'")
+    app_file << line("require 'builder'")
 
     # Require all models
     Dir.foreach(settings.model_directory) do |m|

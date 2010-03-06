@@ -1,13 +1,11 @@
 class <%= @controller_name.capitalize %>Controller < RestedController
   get "/?" do
     <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.all
-    render <%= @controller_name.downcase %>
     to_xml(<%= @controller_name.downcase %>)
   end
 
   get "/:id" do
     <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.find(params[:id])
-    render <%= @controller_name.downcase %>  
     to_xml(<%= @controller_name.downcase %>)
   end
 
