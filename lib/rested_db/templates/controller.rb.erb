@@ -11,14 +11,14 @@ class <%= @controller_name.capitalize %>Controller < RestedController
 
   post "/?" do
     <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-    <%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
+    <%= @controller_name.downcase %>.attributes = params
     <%= @controller_name.downcase %>.save
     to_xml(<%= @controller_name.downcase %>)
   end
 
   put "/:id" do
     <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    <%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
+    <%= @controller_name.downcase %>.update(params)
     to_xml(<%= @controller_name.downcase %>)
   end
 
