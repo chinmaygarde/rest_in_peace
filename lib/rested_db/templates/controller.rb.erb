@@ -5,7 +5,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
   end
 
   get "/:id" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.find(params[:id])
+    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     to_xml(<%= @controller_name.downcase %>)
   end
 

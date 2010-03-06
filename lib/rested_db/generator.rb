@@ -126,6 +126,7 @@ class Generator
     
     controller_names.each do |controller|
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
+        app_file << line("DataMapper.setup(:default, \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
       	app_file << line("run #{controller.gsub("controller", "Controller")}", 1)
       app_file << line("end")
     end
