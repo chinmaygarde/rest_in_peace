@@ -7,8 +7,6 @@ class ServerManager
     Generator.new(project_root).generate_sinatra_app_file
     
     system "thin -p 4567 -D -R #{File.join(settings.config_directory, "config.ru")} start"
-    #require File.join(settings.config_directory, "boot.rb")
-    #ApplicationBase.run!
   end
   
   def configure_server(settings)
