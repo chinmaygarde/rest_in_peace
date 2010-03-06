@@ -9,7 +9,7 @@ class Generator
   def generate_project
     
     if File.exists?(settings.project_root)
-      puts "A project with that name already exists. Move that project of change the name of the new one."
+      puts "A project with that name already exists. Move that project or change the name of the new one."
       return
     end
     
@@ -22,8 +22,11 @@ class Generator
     FileUtils.mkdir(settings.config_directory)
     FileUtils.mkdir(settings.script_directory)
     FileUtils.mkdir(settings.database_directory)
+    FileUtils.mkdir(File.join(settings.view_directory, "layouts"))
     
     File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
+
+    File.open(File.join(settings.view_directory, "layouts", "application.html.erb"), "w") << File.open(File.join(settings.template_directory, "html", "layout.html.erb")).read
 
     define_file = File.open(File.join(settings.script_directory, "define"), "w")
     define_file << File.open(File.join(settings.template_directory, "script", "define")).read
@@ -42,6 +45,7 @@ class Generator
   def generate_scaffold(*args)
     generate_model(*args)
     generate_controller(args[0])
+    generate_views(*args)
   end
 
   def generate_model(*args)
@@ -91,6 +95,35 @@ class Generator
     end
 
   end
+
+  
+  def generate_views(*args)
+    model_name = args[0].downcase
+    directory = File.join(settings.view_directory, model_name)
+    if File.exists?(directory)
+      puts "Views for this model already exist. Skipping generation"
+    else
+      FileUtils.mkdir(directory)
+      index_file = File.open(File.join(directory, "index.html.erb"), "w")
+      index_file << File.open(File.join(settings.template_directory, "html" ,"index.html.erb"))
+      index_file.close
+      
+      show_file = File.open(File.join(directory, "show.html.erb"), "w")
+      show_file << File.open(File.join(settings.template_directory, "html" ,"show.html.erb"))
+      show_file.close
+      
+      edit_file = File.open(File.join(directory, "edit.html.erb"), "w")
+      edit_file << File.open(File.join(settings.template_directory, "html" ,"edit.html.erb"))
+      edit_file.close
+      
+      new_file = File.open(File.join(directory, "new.html.erb"), "w")
+      new_file << File.open(File.join(settings.template_directory, "html" ,"new.html.erb"))
+      new_file.close
+    end
+
+    
+  end
+
   
   def generate_sinatra_app_file
     

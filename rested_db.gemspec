@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
-  s.date = %q{2010-03-06}
+  s.date = %q{2010-03-07}
   s.default_executable = %q{rested}
   s.description = %q{Easily expose database entities as REST resources}
   s.email = %q{chinmaygarde@gmail.com}
@@ -32,6 +32,11 @@ Gem::Specification.new do |s|
      "lib/rested_db/rested_controller.rb",
      "lib/rested_db/server_manager.rb",
      "lib/rested_db/templates/controller.rb.erb",
+     "lib/rested_db/templates/html/edit.html.erb",
+     "lib/rested_db/templates/html/index.html.erb",
+     "lib/rested_db/templates/html/layout.html.erb",
+     "lib/rested_db/templates/html/new.html.erb",
+     "lib/rested_db/templates/html/show.html.erb",
      "lib/rested_db/templates/model.rb.erb",
      "lib/rested_db/templates/readme.txt.erb",
      "lib/rested_db/templates/script/define",
