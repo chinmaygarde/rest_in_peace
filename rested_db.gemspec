@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
      "bin/rested",
      "lib/rested_db.rb",
      "lib/rested_db/generator.rb",
-     "lib/rested_db/helpers.rb",
      "lib/rested_db/migration.rb",
      "lib/rested_db/project_settings.rb",
      "lib/rested_db/rested_controller.rb",

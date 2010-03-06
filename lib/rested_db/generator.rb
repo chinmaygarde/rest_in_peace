@@ -60,12 +60,12 @@ class Generator
 
     model_string = ERB.new(File.open( File.join(settings.template_directory, "model.rb.erb") ).read ).result(b.get_binding)
 
-    file_path = File.join(settings.model_directory, "#{model_name.capitalize}Model.rb")
+    file_path = File.join(settings.model_directory, "#{model_name.capitalize}.rb")
 
     if File.exists?(file_path)
-      puts "Model #{model_name.capitalize}Model.rb already exists. Migration Skipped."
+      puts "Model #{model_name.capitalize}.rb already exists. Migration Skipped."
     else
-      puts "Model #{model_name.capitalize}Model.rb created."
+      puts "Model #{model_name.capitalize}.rb created."
       outfile = File.open(file_path, "w")
       outfile << model_string
       outfile.close
@@ -99,6 +99,7 @@ class Generator
     app_file << line("require 'datamapper'")
     app_file << line("require 'rested_db'")
     app_file << line("require 'sinatra/base'")
+
     # Require all models
     Dir.foreach(settings.model_directory) do |m|
       file_path = File.join(settings.model_directory, m)
