@@ -103,21 +103,26 @@ class Generator
     if File.exists?(directory)
       puts "Views for this model already exist. Skipping generation"
     else
+      
+      v = ViewBinding.new
+      v.view_name = model_name
+      v.fields = Hash.new
+      
       FileUtils.mkdir(directory)
       index_file = File.open(File.join(directory, "index.html.erb"), "w")
-      index_file << File.open(File.join(settings.template_directory, "html" ,"index.html.erb"))
+      index_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"index.html.erb")).read).result(v.get_binding)
       index_file.close
       
       show_file = File.open(File.join(directory, "show.html.erb"), "w")
-      show_file << File.open(File.join(settings.template_directory, "html" ,"show.html.erb"))
+      show_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"show.html.erb")).read).result(v.get_binding)
       show_file.close
       
       edit_file = File.open(File.join(directory, "edit.html.erb"), "w")
-      edit_file << File.open(File.join(settings.template_directory, "html" ,"edit.html.erb"))
+      edit_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"edit.html.erb")).read).result(v.get_binding)
       edit_file.close
       
       new_file = File.open(File.join(directory, "new.html.erb"), "w")
-      new_file << File.open(File.join(settings.template_directory, "html" ,"new.html.erb"))
+      new_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"new.html.erb")).read).result(v.get_binding)
       new_file.close
     end
 
@@ -196,6 +201,20 @@ class ControllerViewBinding
   
   def get_binding
     binding
+  end
+  
+end
+
+class ViewBinding
+  
+  attr_accessor :view_name, :fields
+  
+  def get_binding
+    binding
+  end
+  
+  def map_fields_to_html_tags
+    
   end
   
 end
