@@ -1,13 +1,7 @@
-<p>
-  <b>Title:</b>
-  <%=h @post.title %>
-</p>
+Showing <%= @view_name.capitalize %>
 
-<p>
-  <b>Body:</b>
-  <%=h @post.body %>
-</p>
-
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<% @html_tags.each do |key, value| %>
+	<p>
+		<%= key.capitalize %>: <%= value %>
+	</p>
+<% end %>

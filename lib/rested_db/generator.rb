@@ -99,6 +99,7 @@ class Generator
   
   def generate_views(*args)
     model_name = args[0].downcase
+    
     directory = File.join(settings.view_directory, model_name)
     if File.exists?(directory)
       puts "Views for this model already exist. Skipping generation"
@@ -107,6 +108,12 @@ class Generator
       v = ViewBinding.new
       v.view_name = model_name
       v.fields = Hash.new
+      v.map_fields_to_html_tags
+
+      (1 .. (args.length - 1)).each do |i|
+        key_value = args[i].split(':')
+        v.fields[key_value[0]] = key_value[1]
+      end
       
       FileUtils.mkdir(directory)
       index_file = File.open(File.join(directory, "index.html.erb"), "w")
@@ -207,14 +214,27 @@ end
 
 class ViewBinding
   
-  attr_accessor :view_name, :fields
+  attr_accessor :view_name, :fields, :html_tags
   
   def get_binding
     binding
   end
   
   def map_fields_to_html_tags
-    
+    html_tags = Hash.new
+    fields.each do |key, value|
+      html_tags[key] = tag_for_field_type(value)
+    end
+    return html_tags
+  end
+  
+  def tag_for_field_type(type)
+    case type
+    when "string"
+      "text" #for now, only text inputs will work. Really need to think this through.
+    else
+      "text"
+    end
   end
   
 end
