@@ -1,9 +1,8 @@
 <h1>New <%= @view_name %></h1>
 <form action="/<%= @view_name %>" method="post" accept-charset="utf-8">
-	
 	<% @html_tags.each do |key, value| %>
 		<p>
-			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= key.capitalize %>" value="" id="<%= key %>">
+			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= key %>" value="" id="<%= key %>">
 		</p>		
 	<% end %>
 	<p><input type="submit" value="Submit &rarr;"></p>

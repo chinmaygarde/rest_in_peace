@@ -30,7 +30,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
     @<%= @controller_name.downcase %>.attributes = params
     @<%= @controller_name.downcase %>.save
-    to_xml(<%= @controller_name.downcase %>)
+    #to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end
 
@@ -38,7 +38,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
   put "/:id" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     @<%= @controller_name.downcase %>.update(params)
-    to_xml(<%= @controller_name.downcase %>)
+    #to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end
 
@@ -46,7 +46,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
   delete "/:id" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     @<%= @controller_name.downcase %>.destroy!
-    to_xml(<%= @controller_name.downcase %>)
+    #to_xml(<%= @controller_name.downcase %>)
 	to_html(:index)
   end
 end
