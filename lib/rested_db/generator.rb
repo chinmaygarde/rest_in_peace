@@ -108,6 +108,10 @@ class Generator
       v = ViewBinding.new
       v.view_name = model_name
       v.fields = Hash.new
+      (1 .. (args.length - 1)).each do |i|
+        key_value = args[i].split(':')
+        v.fields[key_value[0]] = key_value[1]
+      end
       v.map_fields_to_html_tags
 
       (1 .. (args.length - 1)).each do |i|
@@ -116,19 +120,19 @@ class Generator
       end
       
       FileUtils.mkdir(directory)
-      index_file = File.open(File.join(directory, "index.html.erb"), "w")
+      index_file = File.open(File.join(directory, "index.erb"), "w")
       index_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"index.html.erb")).read).result(v.get_binding)
       index_file.close
       
-      show_file = File.open(File.join(directory, "show.html.erb"), "w")
+      show_file = File.open(File.join(directory, "show.erb"), "w")
       show_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"show.html.erb")).read).result(v.get_binding)
       show_file.close
       
-      edit_file = File.open(File.join(directory, "edit.html.erb"), "w")
+      edit_file = File.open(File.join(directory, "edit.erb"), "w")
       edit_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"edit.html.erb")).read).result(v.get_binding)
       edit_file.close
       
-      new_file = File.open(File.join(directory, "new.html.erb"), "w")
+      new_file = File.open(File.join(directory, "new.erb"), "w")
       new_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"new.html.erb")).read).result(v.get_binding)
       new_file.close
     end
@@ -172,7 +176,9 @@ class Generator
     controller_names.each do |controller|
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
         app_file << line("DataMapper.setup(:default, \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
-      	app_file << line("run #{controller.gsub("controller", "Controller")}", 1)
+        app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(File.dirname(__FILE__)))", 1)
+        #app_file << line("controller.project_root = File.dirname(File.dirname(__FILE__))", 1)
+      	app_file << line("run controller", 1)
       app_file << line("end")
     end
     
@@ -221,11 +227,10 @@ class ViewBinding
   end
   
   def map_fields_to_html_tags
-    html_tags = Hash.new
-    fields.each do |key, value|
-      html_tags[key] = tag_for_field_type(value)
+    @html_tags = Hash.new
+    @fields.each do |key, value|
+      @html_tags[key] = tag_for_field_type(value)
     end
-    return html_tags
   end
   
   def tag_for_field_type(type)
