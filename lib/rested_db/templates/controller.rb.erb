@@ -1,34 +1,51 @@
 class <%= @controller_name.capitalize %>Controller < RestedController
+
+  # HTTP GET
   get "/?" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.all
-    #to_xml(<%= @controller_name.downcase %>)
+    @<%= @controller_name.downcase %>s = <%= @controller_name.capitalize %>.all
+    #to_xml(<%= @controller_name.downcase %>s)
 	to_html(:index)
   end
 
+  get "/new" do
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
+    #to_xml(<%= @controller_name.downcase %>)
+	to_html(:new)
+  end
+
   get "/:id" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     #to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end
 
+  get "/:id/edit" do
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    #to_xml(<%= @controller_name.downcase %>)
+	to_html(:edit)
+  end
+
+  # HTTP POST
   post "/?" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-    <%= @controller_name.downcase %>.attributes = params
-    <%= @controller_name.downcase %>.save
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
+    @<%= @controller_name.downcase %>.attributes = params
+    @<%= @controller_name.downcase %>.save
     to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end
 
+  # HTTP PUT
   put "/:id" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    <%= @controller_name.downcase %>.update(params)
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    @<%= @controller_name.downcase %>.update(params)
     to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end
 
+  # HTTP DELETE
   delete "/:id" do
-    <%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    <%= @controller_name.downcase %>.destroy!
+    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
+    @<%= @controller_name.downcase %>.destroy!
     to_xml(<%= @controller_name.downcase %>)
 	to_html(:index)
   end

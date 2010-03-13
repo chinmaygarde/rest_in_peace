@@ -23,7 +23,6 @@ class RestedController < Sinatra::Base
 	end
 	
 	def to_html(view, controller=self)
-	  @controller_name = controller.class.to_s.downcase.gsub("controller", "")
     content_type("text/html")
     Sinatra::Base.set(:views, File.join(@settings.view_directory, controller.class.to_s.downcase.gsub("controller", "")))
     erb view

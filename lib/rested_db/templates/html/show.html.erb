@@ -2,6 +2,6 @@ Showing <%= @view_name.capitalize %>
 
 <% @html_tags.each do |key, value| %>
 	<p>
-		<%= key.capitalize %>: <%= value %>
+		<%= key.capitalize %>: <%%= <%= "@#{@view_name}.#{key}" %> %>
 	</p>
 <% end %>

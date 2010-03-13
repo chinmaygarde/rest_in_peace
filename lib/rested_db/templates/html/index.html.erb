@@ -6,9 +6,12 @@ Index: <%= @view_name.capitalize %>
 		<% end %>
 
 	</tr>
+	<%% <%= "@#{@view_name}s.each do |#{@view_name}|" %> %>
 	<tr>
-		<% @html_tags.each do |key, value| %>
-			<td><%= value %></td>
-		<% end %>
+	<% @html_tags.each do |key, value| %>
+
+			<td><%%= <%= "#{@view_name}.#{key}" %> %></td>
+	<% end %>
 	</tr>
+	<%% end %>
 </table>

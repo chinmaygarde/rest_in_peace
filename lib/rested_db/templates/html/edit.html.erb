@@ -3,7 +3,7 @@
 	
 	<% @html_tags.each do |key, value| %>
 		<p>
-			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= key.capitalize %>" value="" id="<%= key %>">
+			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= key.capitalize %>" value="<%%= <%= "@#{@view_name}.#{key}" %> %>" id="<%= key %>">
 		</p>		
 	<% end %>
 	<p><input type="submit" value="Edit &rarr;"></p>
