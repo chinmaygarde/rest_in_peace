@@ -1,4 +1,4 @@
-Index: <%= @view_name.capitalize %>
+<h1>Index: <%= @view_name.capitalize %></h1>
 <table border="0">
 	<tr>
 		<% @html_tags.each do |key, value| %>
@@ -9,9 +9,11 @@ Index: <%= @view_name.capitalize %>
 	<%% <%= "@#{@view_name}s.each do |#{@view_name}|" %> %>
 	<tr>
 	<% @html_tags.each do |key, value| %>
-
-			<td><%%= <%= "#{@view_name}.#{key}" %> %></td>
+		<td><%%= <%= "#{@view_name}.#{key}" %> %></td>
 	<% end %>
 	</tr>
 	<%% end %>
 </table>
+<p>
+	<a href="/<%= @view_name %>/new">Add new <%= @view_name.capitalize %></a>
+</p>

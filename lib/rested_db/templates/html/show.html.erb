@@ -1,7 +1,9 @@
-Showing <%= @view_name.capitalize %>
+<h1>Showing <%= @view_name.capitalize %></h1>
 
 <% @html_tags.each do |key, value| %>
 	<p>
 		<%= key.capitalize %>: <%%= <%= "@#{@view_name}.#{key}" %> %>
 	</p>
 <% end %>
+<a href="/<%= @view_name %>">Back</a> | 
+<a href="/<%= @view_name %>/<%%= params[:id] %>/edit">Edit</a>

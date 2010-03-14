@@ -1,9 +1,8 @@
 class RestedController < Sinatra::Base
   set :method_override, true
-  
+
   def initialize(project_root)
     @settings = ProjectSettings.new(project_root)
-    @view_directory = @settings.view_directory
   end
   
   # Converts an entity to its XML representation
@@ -25,7 +24,8 @@ class RestedController < Sinatra::Base
 	def to_html(view, controller=self)
     content_type("text/html")
     Sinatra::Base.set(:views, File.join(@settings.view_directory, controller.class.to_s.downcase.gsub("controller", "")))
-    erb view
+    @yield = erb(view)
+    ERB.new(File.open(File.join(@settings.view_directory, "layouts", "application.html.erb")).read).result(binding)
 	end
 	
 	private

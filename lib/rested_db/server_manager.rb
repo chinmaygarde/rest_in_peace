@@ -6,7 +6,7 @@ class ServerManager
     configure_server(settings)
     Generator.new(project_root).generate_sinatra_app_file
     
-    system "thin -p 4567 -D -R #{File.join(settings.config_directory, "config.ru")} start"
+    system "rackup #{File.join(settings.config_directory, "config.ru")} -p 4567 -s webrick"
   end
   
   def configure_server(settings)

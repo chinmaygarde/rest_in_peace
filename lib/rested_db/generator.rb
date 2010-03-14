@@ -22,12 +22,17 @@ class Generator
     FileUtils.mkdir(settings.config_directory)
     FileUtils.mkdir(settings.script_directory)
     FileUtils.mkdir(settings.database_directory)
+    FileUtils.mkdir(settings.public_directory)
+    FileUtils.mkdir(File.join(settings.public_directory, "stylesheets"))
     FileUtils.mkdir(File.join(settings.view_directory, "layouts"))
+    FileUtils.cp(File.join(settings.template_directory, "image", "favicon.ico"), settings.public_directory)
     
     File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
 
     File.open(File.join(settings.view_directory, "layouts", "application.html.erb"), "w") << File.open(File.join(settings.template_directory, "html", "layout.html.erb")).read
 
+    File.open(File.join(settings.public_directory, "stylesheets", "main.css"), "w") << File.open(File.join(settings.template_directory, "stylesheet", "main.css")).read
+    
     define_file = File.open(File.join(settings.script_directory, "define"), "w")
     define_file << File.open(File.join(settings.template_directory, "script", "define")).read
 
@@ -156,7 +161,6 @@ class Generator
       full_path = File.expand_path(file_path)
       
       if File.extname(full_path) == ".rb"
-        puts "Required #{full_path}"
         app_file << line("require '#{full_path}'")
       end
     end
@@ -167,20 +171,26 @@ class Generator
       file_path = File.join(settings.controller_directory, c)
       full_path = File.expand_path(file_path)
       if File.extname(full_path) == ".rb"
-        puts "Loaded #{full_path}"
         app_file << line("require '#{full_path}'")
         controller_names << File.basename(full_path, File.extname(full_path)).capitalize
       end
     end
     
+    app_file << line("Sinatra::Base.set :public, File.join(File.dirname(File.dirname(__FILE__)), 'public')")
+
     controller_names.each do |controller|
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
+        #app_file << line("Sinatra::Base.set :public, File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
+        #app_file << line("p File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
         app_file << line("DataMapper.setup(:default, \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
         app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(File.dirname(__FILE__)))", 1)
-        #app_file << line("controller.project_root = File.dirname(File.dirname(__FILE__))", 1)
       	app_file << line("run controller", 1)
       app_file << line("end")
     end
+
+    app_file << line("map \"/public\" do")
+      app_file << line("run RestedController.new(File.dirname(File.dirname(__FILE__)))", 1)
+    app_file << line("end")
     
     app_file.close
     

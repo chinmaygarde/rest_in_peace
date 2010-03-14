@@ -1,0 +1,178 @@
+body
+{ 
+	background-color:#DDEEF6;
+	color: #DDEEF6;
+}
+
+body, p, ol, ul, td
+{
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   14px;
+  line-height: 18px;
+}
+input
+{
+	width:250px;
+	font-size:18px;
+	background-color:#FFF;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:8px;
+}
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #AADDFF; text-decoration:none;}
+a:visited { color: #AADDFF; text-decoration:none;}
+a:hover { color: #AADDFF; text-decoration:none;}
+
+table th
+{
+	padding-left:8px;
+	text-align:left;
+	font-size:15px;
+}
+table td
+{
+	font-size:14px;
+	padding:8px;
+}
+#loginLogout
+{
+	float:right;
+}
+#mainLayout
+{
+	-moz-border-radius:25px;
+	-webkit-border-radius:25px;
+	margin:0px auto;
+	padding:25px;
+	width:80%;
+	border:thin;
+	border-color:#FFF;
+	background-color:#002233;
+}
+#navBar
+{
+	height: 50px;
+	margin:0px auto;
+	width:80%;
+	border:thin;
+	border-color:#FFF;
+}
+#navBar ul
+{
+	padding:0px;
+	float:right;
+}
+#navBar li
+{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	padding:10px;
+	display:inline;
+	background-color:#002233;
+}
+#navBar a
+{
+	padding:10px;
+}
+#navBar li:hover
+{
+	color:#002233;
+	background-color:#aaddff;
+}
+#navBar li a:hover
+{
+	color:#002233;
+}
+#achievement #achievement_distance
+{
+	float: right;
+}
+#checkpoint
+{
+	padding: 10px 0px 10px 0px;
+}
+#user
+{
+	padding: 10px 0px 10px 0px;
+}
+#user #avatar
+{
+	float:left;
+	padding:20px;
+}
+#user #actions
+{
+	float: right;
+}
+#friendship
+{
+	padding: 10px 0px 10px 0px;
+}
+#friendship #actions
+{
+	float: right;
+}
+#quest
+{
+	padding: 10px 0px 10px 0px;
+}
+#quest #summary
+{
+	float: right;
+}
+.pagination
+{
+	padding:8px;
+}
+.pagination .current
+{
+	font-size:18px;
+}
+#flash
+{
+	font-size:14px;
+	color:#0F0;
+}
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+	width: 400px;
+	border: 2px solid red;
+	padding: 7px;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
+	color: #000;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
