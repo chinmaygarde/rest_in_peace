@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "rested_db"
-    gem.summary = %Q{RESTed DB}
-    gem.description = %Q{Easily expose database entities as REST resources}
+    gem.name = "rest_in_peace"
+    gem.summary = %Q{ReST in Peace}
+    gem.description = %Q{Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper}
     gem.email = "chinmaygarde@gmail.com"
-    gem.homepage = "http://github.com/chinmaygarde/rested_db"
+    gem.homepage = "http://github.com/chinmaygarde/rest_in_peace"
     gem.authors = ["Chinmay Garde"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_development_dependency "datamapper", ">= 0.10.2"
