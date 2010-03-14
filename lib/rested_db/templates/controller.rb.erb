@@ -28,7 +28,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
   # HTTP POST
   post "/?" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-    @<%= @controller_name.downcase %>.attributes = params
+    @<%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
     @<%= @controller_name.downcase %>.save
     #to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
@@ -37,7 +37,7 @@ class <%= @controller_name.capitalize %>Controller < RestedController
   # HTTP PUT
   put "/:id" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    @<%= @controller_name.downcase %>.update(params)
+    @<%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
     #to_xml(<%= @controller_name.downcase %>)
 	to_html(:show)
   end

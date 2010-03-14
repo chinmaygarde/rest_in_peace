@@ -3,7 +3,7 @@
 	<input type="hidden" id="_method" name="_method" value="put" />
 	<% @html_tags.each do |key, value| %>
 		<p>
-			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= key %>" value="<%%= <%= "@#{@view_name}.#{key}" %> %>" id="<%= key %>">
+			<label for="<%= key %>"><%= key.capitalize %></label><input type="<%= value %>" name="<%= "#{@view_name}[#{key}]" %>" value="<%%= <%= "@#{@view_name}.#{key}" %> %>" id="<%= "#{@view_name}_#{key}" %>">
 		</p>		
 	<% end %>
 	<p><input type="submit" value="Edit &rarr;"></p>
