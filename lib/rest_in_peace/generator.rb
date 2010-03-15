@@ -28,7 +28,9 @@ class Generator
     FileUtils.cp(File.join(settings.template_directory, "image", "favicon.ico"), settings.public_directory)
     
     File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
-
+    
+    File.open(File.join(settings.project_root, ".gems"), "w") << File.open(File.join(settings.template_directory, "gems")).read
+    
     File.open(File.join(settings.view_directory, "layouts", "application.html.erb"), "w") << File.open(File.join(settings.template_directory, "html", "layout.html.erb")).read
 
     File.open(File.join(settings.public_directory, "stylesheets", "main.css"), "w") << File.open(File.join(settings.template_directory, "stylesheet", "main.css")).read
@@ -151,7 +153,7 @@ class Generator
   
   def generate_rackup_config
     
-    app_file = File.open(File.join(settings.config_directory, "config.ru"), "w")
+    app_file = File.open(File.join(settings.project_root, "config.ru"), "w")
     
     app_file << line("require 'datamapper'")
     app_file << line("require 'rest_in_peace'")
@@ -164,7 +166,7 @@ class Generator
       full_path = File.expand_path(file_path)
       
       if File.extname(full_path) == ".rb"
-        app_file << line("require '#{full_path}'")
+        app_file << line("require '#{full_path.gsub(settings.project_root + "/", "")}'")
       end
     end
     
@@ -174,7 +176,7 @@ class Generator
       file_path = File.join(settings.controller_directory, c)
       full_path = File.expand_path(file_path)
       if File.extname(full_path) == ".rb"
-        app_file << line("require '#{full_path}'")
+        app_file << line("require '#{full_path.gsub(settings.project_root + "/", "")}'")
         controller_names << File.basename(full_path, File.extname(full_path)).capitalize
       end
     end
@@ -185,7 +187,7 @@ class Generator
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
         #app_file << line("Sinatra::Base.set :public, File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
         #app_file << line("p File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
-        app_file << line("DataMapper.setup(:default, \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
+        app_file << line("DataMapper.setup(:default, \"sqlite3://#{settings.database_directory.gsub(settings.project_root + "/", "")}/development.sqlite3\")" , 1)
         app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(File.dirname(__FILE__)))", 1)
       	app_file << line("run controller", 1)
       app_file << line("end")

@@ -11,7 +11,7 @@ class ServerManager
     puts "-------------------- Dead man walking at localhost:4567 ------------------------"
     puts "--------------------------------------------------------------------------------"
     puts "--------------------------------------------------------------------------------"
-    system "rackup #{File.join(settings.config_directory, "config.ru")} -p 4567 -s webrick"
+    system "rackup #{File.join(settings.project_root, "config.ru")} -p 4567 -s webrick"
     
   end
   
