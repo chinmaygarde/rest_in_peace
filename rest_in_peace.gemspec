@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
-  s.date = %q{2010-03-15}
+  s.date = %q{2010-03-16}
   s.default_executable = %q{rip}
   s.description = %q{Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper}
   s.email = %q{chinmaygarde@gmail.com}
@@ -51,7 +51,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/chinmaygarde/rest_in_peace}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{ReST in Peace}
   s.test_files = [
     "test/helper.rb",
@@ -66,15 +66,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_development_dependency(%q<datamapper>, [">= 0.10.2"])
       s.add_development_dependency(%q<builder>, [">= 2.2.2"])
+      s.add_development_dependency(%q<sinatra>, [">= 0.9.4"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_dependency(%q<datamapper>, [">= 0.10.2"])
       s.add_dependency(%q<builder>, [">= 2.2.2"])
+      s.add_dependency(%q<sinatra>, [">= 0.9.4"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     s.add_dependency(%q<datamapper>, [">= 0.10.2"])
     s.add_dependency(%q<builder>, [">= 2.2.2"])
+    s.add_dependency(%q<sinatra>, [">= 0.9.4"])
   end
 end
 
