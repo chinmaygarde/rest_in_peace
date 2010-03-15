@@ -1,26 +1,26 @@
-RESTed DB (Rough Draft. Not final yet)
-======================================
+ReST in Peace
+=============
 
-Easily expose database entities as REST resources.
+Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper.
 
 Setup
 -----
 
 Get the Gem
 
-	gem install rested_db
+	gem install rest_in_peace
 	
 Getting Started
 ---------------
 
 1. Generate the project skeleton
-		rested todo_list
+		rip blogger
 
 2. Move into the project directory
-		cd todo_list
+		cd blogger
 	
 3. Generate model and controller
-		script/define Item name:string completed:boolean
+		script/define Post title:string body:string
 
 4. Migrate database
 		script/migrate
@@ -28,4 +28,4 @@ Getting Started
 5. Start server
 		script/server
 
-6. Browse to http://localhost:4567/item
+6. Browse to http://localhost:4567/post

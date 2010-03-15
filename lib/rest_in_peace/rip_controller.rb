@@ -1,4 +1,4 @@
-class RestedController < Sinatra::Base
+class RIPController < Sinatra::Base
   set :method_override, true
 
   def initialize(project_root)

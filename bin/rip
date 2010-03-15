@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-require 'rested_db'
+require 'rest_in_peace'
 Generator.new(*ARGV).generate_project

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-require 'rested_db'
+require 'rest_in_peace'
 project_root = File.dirname(File.dirname(__FILE__))
 Migration.new.migrate(project_root)

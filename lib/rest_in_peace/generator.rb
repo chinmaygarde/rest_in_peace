@@ -44,7 +44,7 @@ class Generator
 
     File.chmod(0755, define_file.path, server_file.path, migration_file.path)
     
-    puts "You database is ready to REST."
+    puts "Your project is six feet under at #{settings.project_root}"
   end
 
   def generate_scaffold(*args)
@@ -140,18 +140,21 @@ class Generator
       new_file = File.open(File.join(directory, "new.erb"), "w")
       new_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"new.html.erb")).read).result(v.get_binding)
       new_file.close
+      
+      puts "Views Created."
+      
     end
 
     
   end
 
   
-  def generate_sinatra_app_file
+  def generate_rackup_config
     
     app_file = File.open(File.join(settings.config_directory, "config.ru"), "w")
     
     app_file << line("require 'datamapper'")
-    app_file << line("require 'rested_db'")
+    app_file << line("require 'rest_in_peace'")
     app_file << line("require 'sinatra/base'")
     app_file << line("require 'builder'")
 
@@ -189,7 +192,7 @@ class Generator
     end
 
     app_file << line("map \"/public\" do")
-      app_file << line("run RestedController.new(File.dirname(File.dirname(__FILE__)))", 1)
+      app_file << line("run RIPController.new(File.dirname(File.dirname(__FILE__)))", 1)
     app_file << line("end")
     
     app_file.close

@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
   s.date = %q{2010-03-15}
-  s.default_executable = %q{rested}
+  s.default_executable = %q{rip}
   s.description = %q{Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper}
   s.email = %q{chinmaygarde@gmail.com}
-  s.executables = ["rested"]
+  s.executables = ["rip"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.markdown"
@@ -24,27 +24,27 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
-     "bin/rested",
-     "lib/rested_db.rb",
-     "lib/rested_db/generator.rb",
-     "lib/rested_db/migration.rb",
-     "lib/rested_db/project_settings.rb",
-     "lib/rested_db/rested_controller.rb",
-     "lib/rested_db/server_manager.rb",
-     "lib/rested_db/templates/controller.rb.erb",
-     "lib/rested_db/templates/html/edit.html.erb",
-     "lib/rested_db/templates/html/index.html.erb",
-     "lib/rested_db/templates/html/layout.html.erb",
-     "lib/rested_db/templates/html/new.html.erb",
-     "lib/rested_db/templates/html/show.html.erb",
-     "lib/rested_db/templates/image/favicon.ico",
-     "lib/rested_db/templates/model.rb.erb",
-     "lib/rested_db/templates/readme.txt.erb",
-     "lib/rested_db/templates/script/define",
-     "lib/rested_db/templates/script/migrate",
-     "lib/rested_db/templates/script/server",
-     "lib/rested_db/templates/stylesheet/main.css",
-     "rested_db.gemspec",
+     "bin/rip",
+     "lib/rest_in_peace.rb",
+     "lib/rest_in_peace/generator.rb",
+     "lib/rest_in_peace/migration.rb",
+     "lib/rest_in_peace/project_settings.rb",
+     "lib/rest_in_peace/rip_controller.rb",
+     "lib/rest_in_peace/server_manager.rb",
+     "lib/rest_in_peace/templates/controller.rb.erb",
+     "lib/rest_in_peace/templates/html/edit.html.erb",
+     "lib/rest_in_peace/templates/html/index.html.erb",
+     "lib/rest_in_peace/templates/html/layout.html.erb",
+     "lib/rest_in_peace/templates/html/new.html.erb",
+     "lib/rest_in_peace/templates/html/show.html.erb",
+     "lib/rest_in_peace/templates/image/favicon.ico",
+     "lib/rest_in_peace/templates/model.rb.erb",
+     "lib/rest_in_peace/templates/readme.txt.erb",
+     "lib/rest_in_peace/templates/script/define",
+     "lib/rest_in_peace/templates/script/migrate",
+     "lib/rest_in_peace/templates/script/server",
+     "lib/rest_in_peace/templates/stylesheet/main.css",
+     "rest_in_peace.gemspec",
      "test/helper.rb",
      "test/test_rested_db.rb"
   ]
