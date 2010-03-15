@@ -11,9 +11,10 @@ begin
     gem.homepage = "http://github.com/chinmaygarde/rest_in_peace"
     gem.authors = ["Chinmay Garde"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "sinatra", ">= 0.9.4"
     gem.add_development_dependency "datamapper", ">= 0.10.2"
     gem.add_development_dependency "builder", ">= 2.2.2"
-    gem.add_development_dependency "sinatra", ">= 0.9.4"
+    gem.add_development_dependency "taps", ">= 0.2.26"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
