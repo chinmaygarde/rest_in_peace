@@ -50,21 +50,17 @@ class Generator
   end
 
   def generate_scaffold(*args)
-    generate_model(*args)
-    generate_controller(args[0])
-    generate_views(*args)
+    
+    # TODO: Throw proper error messages
+    arguments = parse_arguments(*args)
+
+    generate_model(arguments["entity"], arguments["columns"])
+    generate_controller(arguments["entity"])
+    generate_views(arguments["entity"], arguments["columns"])
   end
 
-  def generate_model(*args)
-
-    model_name = args[0]
-    columns = Hash.new
-
-    (1 .. (args.length - 1)).each do |i|
-      key_value = args[i].split(':')
-      columns[key_value[0]] = key_value[1]
-    end
-
+  def generate_model(model_name, columns)
+    
     b = ModelViewBinding.new
     b.model_name = model_name
     b.columns = columns
@@ -104,9 +100,8 @@ class Generator
   end
 
   
-  def generate_views(*args)
-    model_name = args[0].downcase
-    
+  def generate_views(model_name, columns)
+
     directory = File.join(settings.view_directory, model_name)
     if File.exists?(directory)
       puts "Views for this model already exist. Skipping generation"
@@ -114,18 +109,9 @@ class Generator
       
       v = ViewBinding.new
       v.view_name = model_name
-      v.fields = Hash.new
-      (1 .. (args.length - 1)).each do |i|
-        key_value = args[i].split(':')
-        v.fields[key_value[0]] = key_value[1]
-      end
+      v.fields = columns
       v.map_fields_to_html_tags
 
-      (1 .. (args.length - 1)).each do |i|
-        key_value = args[i].split(':')
-        v.fields[key_value[0]] = key_value[1]
-      end
-      
       FileUtils.mkdir(directory)
       index_file = File.open(File.join(directory, "index.erb"), "w")
       index_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"index.html.erb")).read).result(v.get_binding)
@@ -143,7 +129,7 @@ class Generator
       new_file << ERB.new(File.open(File.join(settings.template_directory, "html" ,"new.html.erb")).read).result(v.get_binding)
       new_file.close
       
-      puts "Views Created."
+      puts "Views for #{model_name.capitalize} Created."
       
     end
 
@@ -202,6 +188,35 @@ class Generator
   end
   
   private
+  
+  def parse_arguments(*args)
+    arguments = Hash.new
+    
+    # First argument has to be entity name
+    arguments["entity"] = args[0]
+
+    
+    columns = Hash.new
+    associations = Hash.new
+    
+    # Iterate over rest of the arguments
+    (1 .. (args.length - 1)).each do |index|
+      key_value = args[index].split(':')
+      key_value[0] = key_value[0].downcase
+      
+      # Check if argument is part a known association
+      if key_value[0] == "has_many" || key_value[0] == "belongs_to" || key_value[0] == "has_and_belongs_to_many"
+        associations[key_value[0]] = key_value[1]
+      else
+        columns[key_value[0]] = key_value[1]          
+      end
+    end
+    
+    arguments["columns"] = columns
+    arguments["associations"] = associations
+    
+    return arguments
+  end
   
   def line(str, indent=0)
     out_str = ""
