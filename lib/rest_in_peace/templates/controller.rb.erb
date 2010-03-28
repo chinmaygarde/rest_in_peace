@@ -1,52 +1,124 @@
 class <%= @controller_name.capitalize %>Controller < RIPController
 
-  # HTTP GET
+  # Shows list of all <%= @controller_name.downcase.pluralize %>
+  # HTTP GET at /<%= @controller_name.downcase %>
   get "/?" do
-    @<%= @controller_name.downcase %>s = <%= @controller_name.capitalize %>.all
-    #to_xml(<%= @controller_name.downcase %>s)
-	to_html(:index)
+    @<%= @controller_name.downcase.pluralize %> = <%= @controller_name.capitalize %>.all
+    #to_xml(@<%= @controller_name.downcase.pluralize %>)
+	  to_html(:index)
   end
 
+  # Show a page where you can fill in details for adding a new <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/new
   get "/new" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-    #to_xml(<%= @controller_name.downcase %>)
-	to_html(:new)
+	  to_html(:new)
   end
 
+  <% if @dependent_entity %>
+  # Show a page where you can fill in details for adding a new <%= @dependent_entity.downcase %> for a <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= @dependent_entity.downcase %>/new
+  get "/:id/<%= @dependent_entity.downcase %>/new" do
+    @<%= @dependent_entity.downcase %> = <%= @dependent_entity.capitalize %>.new
+	  to_html(:new)
+  end
+  <% end %>
+  
+  # Show a particular <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/1
   get "/:id" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    #to_xml(<%= @controller_name.downcase %>)
-	to_html(:show)
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:show)
   end
 
+  <% if @dependent_entity %>
+  # Show all <%= @controller_name.downcase.pluralize %> for a particular <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= @dependent_entity.downcase %>
+  get "/:id/<%= @dependent_entity %>" do
+    @<%= @dependent_entity.downcase.pluralize %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= @dependent_entity.downcase.pluralize %>
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:show)
+  end
+  <% end %>
+  
+  # Show the edit page for a particular <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/1/edit
   get "/:id/edit" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    #to_xml(<%= @controller_name.downcase %>)
-	to_html(:edit)
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:edit)
   end
 
-  # HTTP POST
+  <% if @dependent_entity %>
+  # Show the edit page for a particular <%= @dependent_entity.downcase %> of a <%= @controller_name.downcase %>
+  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= @dependent_entity.downcase %>/1/edit
+  get "/:id/<%= @dependent_entity.downcase %>/:id2/edit" do
+    @<%= @dependent_entity.downcase %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= @dependent_entity.downcase.pluralize %>.get(params[:id2])
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:edit)
+  end
+  <% end %>
+  
+  # Add a new <%= @controller_name.downcase %>
+  # HTTP POST at /<%= @controller_name.downcase %>
   post "/?" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
     @<%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
     @<%= @controller_name.downcase %>.save
-    #to_xml(<%= @controller_name.downcase %>)
-	to_html(:show)
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:show)
   end
 
-  # HTTP PUT
-  put "/:id" do
+  <% if @dependent_entity %>
+  # Add a new <%= @dependent_entity.downcase %> for a particular <%= @controller_name.downcase %>
+  # HTTP POST at /<%= @controller_name.downcase %>/1/<%= @dependent_entity.downcase %>
+  post "/:id/<%= @dependent_entity.downcase %>" do
+    @<%= @dependent_entity.downcase %> = <%= @dependent_entity.capitalize %>.new
+    @<%= @dependent_entity.downcase %>.attributes = params[:<%= @dependent_entity.downcase %>]
+    @<%= @dependent_entity.downcase %>.save
+    #to_xml(@<%= @dependent_entity.downcase %>)
+	  to_html(:show)
+  end
+  <% end %>
+  
+  # Edit a <%= @controller_name.downcase %>
+  # HTTP PUT at /<%= @controller_name.downcase %>/1
+  put "/:id/?" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     @<%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
-    #to_xml(<%= @controller_name.downcase %>)
-	to_html(:show)
+    #to_xml(@<%= @controller_name.downcase %>)
+	  to_html(:show)
   end
 
-  # HTTP DELETE
+  <% if @dependent_entity %>
+  # Edit a particular <%= @dependent_entity.downcase %> for a <%= @controller_name.downcase %>
+  # HTTP PUT at /<%= @controller_name.downcase %>/1/<%= @dependent_entity %>/1
+  put "/:id/<%= @dependent_entity %>/:id2/?" do
+    @<%= @dependent_entity.downcase %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= @dependent_entity.downcase.pluralize %>.get(params[:id2])
+    @<%= @dependent_entity.downcase %>.update(params[:<%= @dependent_entity.downcase %>])
+    #to_xml(@<%= @dependent_entity.downcase %>)
+	  to_html(:show)
+  end
+  <% end %>
+  
+  # Delete a <%= @controller_name.downcase %>
+  # HTTP DELETE at /<%= @controller_name.downcase %>/1
   delete "/:id" do
     @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
     @<%= @controller_name.downcase %>.destroy!
     #to_xml(<%= @controller_name.downcase %>)
-	to_html(:index)
+	  to_html(:index)
   end
+  
+  <% if @dependent_entity %>
+  # Delete a particular <%= @dependent_entity.downcase %> for a <%= @controller_name.downcase %>
+  # HTTP DELETE at /<%= @controller_name.downcase %>/1/<%= @dependent_entity %>/1
+  delete "/:id/<%= @dependent_entity/:id2 %>" do
+    @<%= @dependent_entity.downcase %> = <%= @dependent_entity.capitalize %>.get(params[:id]).<%= @dependent_entity.downcase.pluralize %>.get(params[:id2])
+    @<%= @dependent_entity.downcase %>.destroy!
+    #to_xml(<%= @dependent_entity.downcase %>)
+	  to_html(:index)
+  end
+  <% end%>
 end

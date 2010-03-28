@@ -6,7 +6,7 @@
 		<% end %>
 
 	</tr>
-	<%% <%= "@#{@view_name}s.each do |#{@view_name}|" %> %>
+	<%% <%= "@#{@view_name.downcase.pluralize}.each do |#{@view_name.downcase}|" %> %>
 	<tr>
 	<% @html_tags.each do |key, value| %>
 		<td><%%= <%= "#{@view_name}.#{key}" %> %></td>

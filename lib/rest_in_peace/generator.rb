@@ -55,7 +55,7 @@ class Generator
     arguments = parse_arguments(*args)
 
     generate_model(arguments["entity"], arguments["columns"], arguments["associations"])
-    generate_controller(arguments["entity"])
+    generate_controller(arguments["entity"], arguments["associations"])
     generate_views(arguments["entity"], arguments["columns"])
   end
 
@@ -82,10 +82,17 @@ class Generator
     
   end
   
-  def generate_controller(name)
+  def generate_controller(name, associations)
 
     b = ControllerViewBinding.new
     b.controller_name = name
+    
+    # TODO: For now, works with only one association
+    associations.each do |association_type, associated_entity|
+      if association_type == "has_many"
+        b.dependent_entity = associated_entity
+      end
+    end
     
     controller_string = ERB.new(File.open( File.join(settings.template_directory, "controller.rb.erb") ).read).result(b.get_binding)
     file_path = File.join(settings.controller_directory, "#{name.capitalize}Controller.rb")
@@ -195,7 +202,7 @@ class Generator
     arguments = Hash.new
     
     # First argument has to be entity name
-    arguments["entity"] = args[0]
+    arguments["entity"] = args[0].downcase
 
     
     columns = Hash.new
@@ -245,8 +252,8 @@ class ModelViewBinding
       case key
       when "has_many"
         @statements << "has n, :#{value.pluralize}"
-      when "belongs_to :#{value}"
-        @statements << "belongs"
+      when "belongs_to"
+        @statements << "belongs_to :#{value}"
       when "has_and_belongs_to_many"
         # TODO
       end
@@ -257,7 +264,7 @@ end
 
 class ControllerViewBinding
   
-  attr_accessor :controller_name
+  attr_accessor :controller_name, :dependent_entity
   
   def get_binding
     binding
