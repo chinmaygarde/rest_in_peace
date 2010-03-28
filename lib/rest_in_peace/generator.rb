@@ -181,20 +181,20 @@ class Generator
       end
     end
     
-    app_file << line("Sinatra::Base.set :public, File.join(File.dirname(File.dirname(__FILE__)), 'public')")
+    app_file << line("Sinatra::Base.set :public, File.join(File.dirname(__FILE__), 'public')")
 
     controller_names.each do |controller|
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
         #app_file << line("Sinatra::Base.set :public, File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
         #app_file << line("p File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
-        app_file << line("DataMapper.setup(:default,  ENV['DATABASE_URL'] || \"sqlite3://#{settings.database_directory.gsub(settings.project_root + "/", "")}/development.sqlite3\")" , 1)
-        app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(File.dirname(__FILE__)))", 1)
+        app_file << line("DataMapper.setup(:default,  ENV['DATABASE_URL'] || \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
+        app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(__FILE__))", 1)
       	app_file << line("run controller", 1)
       app_file << line("end")
     end
 
     app_file << line("map \"/public\" do")
-      app_file << line("run RIPController.new(File.dirname(File.dirname(__FILE__)))", 1)
+      app_file << line("run RIPController.new(File.dirname(__FILE__))", 1)
     app_file << line("end")
     
     app_file.close
