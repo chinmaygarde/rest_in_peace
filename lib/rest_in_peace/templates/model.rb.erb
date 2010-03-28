@@ -1,9 +1,11 @@
 class <%= @model_name.capitalize %>
 
 	include DataMapper::Resource
-	
-    property :id, Serial
+	property :id, Serial
 	<% @columns.each do |key, value| %>
 	property :<%= key %>, <%= value.capitalize %>
 	<% end %>
+	<% @statements.each do |statement| %>
+	<%= statement %>
+  <% end %>
 end

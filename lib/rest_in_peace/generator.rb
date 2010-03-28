@@ -54,18 +54,20 @@ class Generator
     # TODO: Throw proper error messages
     arguments = parse_arguments(*args)
 
-    generate_model(arguments["entity"], arguments["columns"])
+    generate_model(arguments["entity"], arguments["columns"], arguments["associations"])
     generate_controller(arguments["entity"])
     generate_views(arguments["entity"], arguments["columns"])
   end
 
-  def generate_model(model_name, columns)
+  def generate_model(model_name, columns, associations)
     
-    b = ModelViewBinding.new
-    b.model_name = model_name
-    b.columns = columns
-
-    model_string = ERB.new(File.open( File.join(settings.template_directory, "model.rb.erb") ).read ).result(b.get_binding)
+    model_binding = ModelViewBinding.new
+    model_binding.model_name = model_name
+    model_binding.columns = columns
+    model_binding.associations = associations
+    model_binding.convert_associations_to_datamapper_statements
+    
+    model_string = ERB.new(File.open( File.join(settings.template_directory, "model.rb.erb") ).read ).result(model_binding.get_binding)
 
     file_path = File.join(settings.model_directory, "#{model_name.capitalize}.rb")
 
@@ -203,6 +205,7 @@ class Generator
     (1 .. (args.length - 1)).each do |index|
       key_value = args[index].split(':')
       key_value[0] = key_value[0].downcase
+      key_value[1] = key_value[1].downcase.singularize
       
       # Check if argument is part a known association
       if key_value[0] == "has_many" || key_value[0] == "belongs_to" || key_value[0] == "has_and_belongs_to_many"
@@ -230,10 +233,24 @@ end
 
 class ModelViewBinding
   
-  attr_accessor :model_name, :columns
+  attr_accessor :model_name, :columns, :associations, :statements
   
   def get_binding
     binding
+  end
+  
+  def convert_associations_to_datamapper_statements
+    @statements = Array.new unless @statements
+    @associations.each do |key, value|
+      case key
+      when "has_many"
+        @statements << "has n, :#{value.pluralize}"
+      when "belongs_to :#{value}"
+        @statements << "belongs"
+      when "has_and_belongs_to_many"
+        # TODO
+      end
+    end
   end
   
 end
