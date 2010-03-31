@@ -1,117 +1,117 @@
 class <%= @controller_name.capitalize %>Controller < RIPController
   
   <% @dependent_entity.each do |entity| %>
-  # Show a page where you can fill in details for adding a new <%= entity.downcase %> for a <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= entity.downcase %>/new
-  get "/:id/<%= entity.downcase %>/new" do
-    @<%= entity.downcase %> = <%= entity.capitalize %>.new
+  # Show a page where you can fill in details for adding a new <%= entity %> for a <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1/<%= entity %>/new
+  get "/:id/<%= entity %>/new" do
+    @<%= entity %> = <%= entity.capitalize %>.new
 	  to_html(:new)
   end
 
-  # Show all <%= entity.pluralize %> for a particular <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= entity.downcase %>
+  # Show all <%= entity.pluralize %> for a particular <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1/<%= entity %>
   get "/:id/<%= entity %>" do
-    @<%= entity.downcase.pluralize %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.downcase.pluralize %>
-    #to_xml(@<%= @controller_name.downcase %>)
+    @<%= entity.pluralize %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:show)
   end
   
-  # Show the edit page for a particular <%= entity.downcase %> of a <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/1/<%= entity.downcase %>/1/edit
-  get "/:id/<%= entity.downcase %>/:id2/edit" do
-    @<%= entity.downcase %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.downcase.pluralize %>.get(params[:id2])
-    #to_xml(@<%= @controller_name.downcase %>)
+  # Show the edit page for a particular <%= entity %> of a <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1/<%= entity %>/1/edit
+  get "/:id/<%= entity %>/:id2/edit" do
+    @<%= entity %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:edit)
   end
   
-  # Add a new <%= entity.downcase %> for a particular <%= @controller_name.downcase %>
-  # HTTP POST at /<%= @controller_name.downcase %>/1/<%= entity.downcase %>
-  post "/:id/<%= entity.downcase %>" do
-    @<%= entity.downcase %> = <%= entity.capitalize %>.new
-    @<%= entity.downcase %>.attributes = params[:<%= entity.downcase %>]
-    @<%= entity.downcase %>.save
-    #to_xml(@<%= entity.downcase %>)
+  # Add a new <%= entity %> for a particular <%= @controller_name %>
+  # HTTP POST at /<%= @controller_name %>/1/<%= entity %>
+  post "/:id/<%= entity %>" do
+    @<%= entity %> = <%= entity.capitalize %>.new
+    @<%= entity %>.attributes = params[:<%= entity %>]
+    @<%= entity %>.save
+    #to_xml(@<%= entity %>)
 	  to_html(:show)
   end
   
-  # Edit a particular <%= entity.downcase %> for a <%= @controller_name.downcase %>
-  # HTTP PUT at /<%= @controller_name.downcase %>/1/<%= entity %>/1
+  # Edit a particular <%= entity %> for a <%= @controller_name %>
+  # HTTP PUT at /<%= @controller_name %>/1/<%= entity %>/1
   put "/:id/<%= entity %>/:id2/?" do
-    @<%= entity.downcase %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.downcase.pluralize %>.get(params[:id2])
-    @<%= entity.downcase %>.update(params[:<%= entity.downcase %>])
-    #to_xml(@<%= entity.downcase %>)
+    @<%= entity %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
+    @<%= entity %>.update(params[:<%= entity %>])
+    #to_xml(@<%= entity %>)
 	  to_html(:show)
   end
   
-  # Delete a particular <%= entity.downcase %> for a <%= @controller_name.downcase %>
-  # HTTP DELETE at /<%= @controller_name.downcase %>/1/<%= entity %>/1
+  # Delete a particular <%= entity %> for a <%= @controller_name %>
+  # HTTP DELETE at /<%= @controller_name %>/1/<%= entity %>/1
   delete "/:id/<%= entity/:id2 %>" do
-    @<%= entity.downcase %> = <%= entity.capitalize %>.get(params[:id]).<%= entity.downcase.pluralize %>.get(params[:id2])
-    @<%= entity.downcase %>.destroy!
-    #to_xml(<%= entity.downcase %>)
+    @<%= entity %> = <%= entity.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
+    @<%= entity %>.destroy!
+    #to_xml(<%= entity %>)
 	  to_html(:index)
   end
   <% end %>
 
-  # Shows list of all <%= @controller_name.downcase.pluralize %>
-  # HTTP GET at /<%= @controller_name.downcase %>
+  # Shows list of all <%= @controller_name.pluralize %>
+  # HTTP GET at /<%= @controller_name %>
   get "/?" do
-    @<%= @controller_name.downcase.pluralize %> = <%= @controller_name.capitalize %>.all
-    #to_xml(@<%= @controller_name.downcase.pluralize %>)
+    @<%= @controller_name.pluralize %> = <%= @controller_name.capitalize %>.all
+    #to_xml(@<%= @controller_name.pluralize %>)
 	  to_html(:index)
   end
 
-  # Show a particular <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/1
+  # Show a particular <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1
   get "/:id" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    #to_xml(@<%= @controller_name.downcase %>)
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:show)
   end
 
-  # Show a page where you can fill in details for adding a new <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/new
+  # Show a page where you can fill in details for adding a new <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/new
   get "/new" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.new
 	  to_html(:new)
   end
 
   
-  # Show the edit page for a particular <%= @controller_name.downcase %>
-  # HTTP GET at /<%= @controller_name.downcase %>/1/edit
+  # Show the edit page for a particular <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1/edit
   get "/:id/edit" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    #to_xml(@<%= @controller_name.downcase %>)
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:edit)
   end
 
   
-  # Add a new <%= @controller_name.downcase %>
-  # HTTP POST at /<%= @controller_name.downcase %>
+  # Add a new <%= @controller_name %>
+  # HTTP POST at /<%= @controller_name %>
   post "/?" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.new
-    @<%= @controller_name.downcase %>.attributes = params[:<%= @controller_name.downcase %>]
-    @<%= @controller_name.downcase %>.save
-    #to_xml(@<%= @controller_name.downcase %>)
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.new
+    @<%= @controller_name %>.attributes = params[:<%= @controller_name %>]
+    @<%= @controller_name %>.save
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:show)
   end
   
-  # Edit a <%= @controller_name.downcase %>
-  # HTTP PUT at /<%= @controller_name.downcase %>/1
+  # Edit a <%= @controller_name %>
+  # HTTP PUT at /<%= @controller_name %>/1
   put "/:id/?" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    @<%= @controller_name.downcase %>.update(params[:<%= @controller_name.downcase %>])
-    #to_xml(@<%= @controller_name.downcase %>)
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
+    @<%= @controller_name %>.update(params[:<%= @controller_name %>])
+    #to_xml(@<%= @controller_name %>)
 	  to_html(:show)
   end
 
   
-  # Delete a <%= @controller_name.downcase %>
-  # HTTP DELETE at /<%= @controller_name.downcase %>/1
+  # Delete a <%= @controller_name %>
+  # HTTP DELETE at /<%= @controller_name %>/1
   delete "/:id" do
-    @<%= @controller_name.downcase %> = <%= @controller_name.capitalize %>.get(params[:id])
-    @<%= @controller_name.downcase %>.destroy!
-    #to_xml(<%= @controller_name.downcase %>)
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
+    @<%= @controller_name %>.destroy!
+    #to_xml(<%= @controller_name %>)
 	  to_html(:index)
   end
 
