@@ -15,6 +15,7 @@ begin
     gem.add_development_dependency "datamapper", ">= 0.10.2"
     gem.add_development_dependency "builder", ">= 2.2.2"
     gem.add_development_dependency "taps", ">= 0.2.26"
+    gem.add_development_dependency "bundler", ">= 0.9.11"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

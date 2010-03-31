@@ -72,12 +72,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<datamapper>, [">= 0.10.2"])
       s.add_development_dependency(%q<builder>, [">= 2.2.2"])
       s.add_development_dependency(%q<taps>, [">= 0.2.26"])
+      s.add_development_dependency(%q<bundler>, [">= 0.9.11"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0.9.4"])
       s.add_dependency(%q<datamapper>, [">= 0.10.2"])
       s.add_dependency(%q<builder>, [">= 2.2.2"])
       s.add_dependency(%q<taps>, [">= 0.2.26"])
+      s.add_dependency(%q<bundler>, [">= 0.9.11"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
@@ -85,6 +87,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<datamapper>, [">= 0.10.2"])
     s.add_dependency(%q<builder>, [">= 2.2.2"])
     s.add_dependency(%q<taps>, [">= 0.2.26"])
+    s.add_dependency(%q<bundler>, [">= 0.9.11"])
   end
 end
 
