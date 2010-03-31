@@ -86,11 +86,10 @@ class Generator
 
     b = ControllerViewBinding.new
     b.controller_name = name
-    
-    # TODO: For now, works with only one association
-    associations.each do |association_type, associated_entity|
+    b.dependent_entity = Array.new
+    associations.each do |associated_entity, association_type|
       if association_type == "has_many"
-        b.dependent_entity = associated_entity
+        b.dependent_entity << associated_entity
       end
     end
     
@@ -216,7 +215,7 @@ class Generator
       
       # Check if argument is part a known association
       if key_value[0] == "has_many" || key_value[0] == "belongs_to" || key_value[0] == "has_and_belongs_to_many"
-        associations[key_value[0]] = key_value[1]
+        associations[key_value[1]] = key_value[0] # Key is the name of the entity
       else
         columns[key_value[0]] = key_value[1]          
       end
@@ -234,66 +233,6 @@ class Generator
       out_str = out_str + "\t"
     end
     out_str = out_str + str + "\n"
-  end
-  
-end
-
-class ModelViewBinding
-  
-  attr_accessor :model_name, :columns, :associations, :statements
-  
-  def get_binding
-    binding
-  end
-  
-  def convert_associations_to_datamapper_statements
-    @statements = Array.new unless @statements
-    @associations.each do |key, value|
-      case key
-      when "has_many"
-        @statements << "has n, :#{value.pluralize}"
-      when "belongs_to"
-        @statements << "belongs_to :#{value}"
-      when "has_and_belongs_to_many"
-        # TODO
-      end
-    end
-  end
-  
-end
-
-class ControllerViewBinding
-  
-  attr_accessor :controller_name, :dependent_entity
-  
-  def get_binding
-    binding
-  end
-  
-end
-
-class ViewBinding
-  
-  attr_accessor :view_name, :fields, :html_tags
-  
-  def get_binding
-    binding
-  end
-  
-  def map_fields_to_html_tags
-    @html_tags = Hash.new
-    @fields.each do |key, value|
-      @html_tags[key] = tag_for_field_type(value)
-    end
-  end
-  
-  def tag_for_field_type(type)
-    case type
-    when "string"
-      "text" #for now, only text inputs will work. Really need to think this through.
-    else
-      "text"
-    end
   end
   
 end

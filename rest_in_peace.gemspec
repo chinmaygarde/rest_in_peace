@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
-  s.date = %q{2010-03-28}
+  s.date = %q{2010-03-31}
   s.default_executable = %q{rip}
   s.description = %q{Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper}
   s.email = %q{chinmaygarde@gmail.com}
@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
      "VERSION",
      "bin/rip",
      "lib/rest_in_peace.rb",
+     "lib/rest_in_peace/bindings/controller_view_binding.rb",
+     "lib/rest_in_peace/bindings/model_view_binding.rb",
+     "lib/rest_in_peace/bindings/view_binding.rb",
      "lib/rest_in_peace/generator.rb",
      "lib/rest_in_peace/migration.rb",
      "lib/rest_in_peace/project_settings.rb",
