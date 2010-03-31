@@ -29,6 +29,8 @@ class Generator
     
     File.open(File.join(settings.project_root, "README"), "w") << File.open(File.join(settings.template_directory, "readme.txt.erb")).read
     
+    FileUtils.cp(File.join(settings.template_directory, "Gemfile"), settings.project_root)
+    
     File.open(File.join(settings.project_root, ".gems"), "w") << File.open(File.join(settings.template_directory, "gems")).read
     
     File.open(File.join(settings.view_directory, "layouts", "application.html.erb"), "w") << File.open(File.join(settings.template_directory, "html", "layout.html.erb")).read
