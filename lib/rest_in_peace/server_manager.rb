@@ -5,13 +5,11 @@ class ServerManager
     settings = ProjectSettings.new(project_root)
   
     Generator.new(project_root).generate_rackup_config
-    
+    config_options = YAML::load(File.open(File.join(settings.config_directory, "config.yml"), "r").read)
     puts "--------------------------------------------------------------------------------"
+    puts "-------------------- Dead man walking at localhost:#{config_options["server_port"]} ------------------------"
     puts "--------------------------------------------------------------------------------"
-    puts "-------------------- Dead man walking at localhost:4567 ------------------------"
-    puts "--------------------------------------------------------------------------------"
-    puts "--------------------------------------------------------------------------------"
-    system "rackup #{File.join(settings.project_root, "config.ru")} -p 4567 -s webrick"
+    system "rackup #{File.join(settings.project_root, "config.ru")} -p #{config_options["server_port"]} -s #{config_options["server_adapter"]}"
     
   end
   

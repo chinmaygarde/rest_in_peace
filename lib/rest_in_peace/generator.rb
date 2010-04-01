@@ -31,6 +31,8 @@ class Generator
     
     FileUtils.cp(File.join(settings.template_directory, "Gemfile"), settings.project_root)
     
+    FileUtils.cp(File.join(settings.template_directory, "config.yml"), settings.config_directory)
+    
     File.open(File.join(settings.view_directory, "layouts", "application.html.erb"), "w") << File.open(File.join(settings.template_directory, "html", "layout.html.erb")).read
 
     File.open(File.join(settings.public_directory, "stylesheets", "main.css"), "w") << File.open(File.join(settings.template_directory, "stylesheet", "main.css")).read

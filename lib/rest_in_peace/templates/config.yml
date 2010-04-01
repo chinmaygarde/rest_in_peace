@@ -1,0 +1,3 @@
+server_adapter: webrick
+server_port: 4567
+database_adapter: sqlite

@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/rest_in_peace/rip_controller.rb",
      "lib/rest_in_peace/server_manager.rb",
      "lib/rest_in_peace/templates/Gemfile",
+     "lib/rest_in_peace/templates/config.yml",
      "lib/rest_in_peace/templates/controller.rb.erb",
      "lib/rest_in_peace/templates/html/edit.html.erb",
      "lib/rest_in_peace/templates/html/index.html.erb",
