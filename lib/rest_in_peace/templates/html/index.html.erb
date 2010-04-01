@@ -15,5 +15,9 @@
 	<%% end %>
 </table>
 <p>
-	<a href="/<%= @view_name %>/new">Add new <%= @view_name.capitalize %></a>
+  <%% if @parent_entity %>
+	  <a href="/<%%= @parent_entity %>/<%%= params[:id] %>/<%= @view_name %>/new">Add new <%= @view_name.capitalize %></a>
+	<%% else %>
+	  <a href="/<%= @view_name %>/new">Add new <%= @view_name.capitalize %></a>
+	<%% end %>
 </p>

@@ -5,5 +5,10 @@
 		<%= key.capitalize %>: <%%= <%= "@#{@view_name}.#{key}" %> %>
 	</p>
 <% end %>
-<a href="/<%= @view_name %>">Back</a> | 
-<a href="/<%= @view_name %>/<%%= params[:id] %>/edit">Edit</a>
+<%% if @parent_entity %>
+  <a href=/<%%= @parent_entity %>/<%%= params[:id] %>"/<%= @view_name %>">Back</a> | 
+  <a href="/<%%= @parent_entity %>/<%%= params[:id] %>/<%= @view_name %>/<%%= params[:id] %>/edit">Edit</a>
+<%% else %>
+  <a href="/<%= @view_name %>">Back</a> | 
+  <a href="/<%= @view_name %>/<%%= params[:id] %>/edit">Edit</a>
+<%% end %>

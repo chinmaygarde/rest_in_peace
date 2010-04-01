@@ -140,8 +140,6 @@ class Generator
       puts "Views for #{model_name.capitalize} Created."
       
     end
-
-    
   end
 
   
@@ -179,8 +177,6 @@ class Generator
 
     controller_names.each do |controller|
       app_file << line("map \"/#{controller.downcase.gsub("controller", "")}\" do")
-        #app_file << line("Sinatra::Base.set :public, File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
-        #app_file << line("p File.expand_path(File.join(File.dirname(File.dirname(__FILE__)), 'public'))", 1)
         app_file << line("DataMapper.setup(:default,  ENV['DATABASE_URL'] || \"sqlite3://#{settings.database_directory}/development.sqlite3\")" , 1)
         app_file << line("controller = #{controller.gsub("controller", "Controller")}.new(File.dirname(__FILE__))", 1)
       	app_file << line("run controller", 1)

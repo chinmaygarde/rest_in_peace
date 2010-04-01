@@ -1,5 +1,9 @@
 <h1>Editing <%= @view_name %></h1>
-<form action="/<%= @view_name %>/<%%= params[:id] %>" method="post" accept-charset="utf-8">
+<%% if @parent_entity %>
+  <form action="/<%%= @parent_entity %>/<%%= params[:id] %>/<%= @view_name %>/<%%= params[:id] %>" method="post" accept-charset="utf-8">
+<%% else %>
+  <form action="/<%= @view_name %>/<%%= params[:id] %>" method="post" accept-charset="utf-8">
+<%% end %>
 	<input type="hidden" id="_method" name="_method" value="put" />
 	<% @html_tags.each do |key, value| %>
 		<p>

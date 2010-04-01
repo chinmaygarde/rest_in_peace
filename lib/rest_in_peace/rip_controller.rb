@@ -21,9 +21,13 @@ class RIPController < Sinatra::Base
 		end
 	end
 	
-	def to_html(view, controller=self)
+	def to_html(view, entity = self.class.to_s)
+	  # Check if the view to be displayed is the default one for the controller
+    if entity != self.class.to_s
+      @parent_entity = self.class.to_s.downcase.gsub("controller", "").strip
+    end
     content_type("text/html")
-    Sinatra::Base.set(:views, File.join(@settings.view_directory, controller.class.to_s.downcase.gsub("controller", "")))
+    Sinatra::Base.set(:views, File.join(@settings.view_directory, entity.downcase.gsub("controller", "").strip))
     @yield = erb(view)
     ERB.new(File.open(File.join(@settings.view_directory, "layouts", "application.html.erb")).read).result(binding)
 	end

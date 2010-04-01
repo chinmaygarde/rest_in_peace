@@ -1,27 +1,28 @@
 class <%= @controller_name.capitalize %>Controller < RIPController
   
   <% @dependent_entity.each do |entity| %>
+  
+  # Show all <%= entity.pluralize %> for a particular <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1/<%= entity %>
+  get "/:id/<%= entity %>/?" do
+    @<%= entity.pluralize %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>
+    #to_xml(@<%= @controller_name %>)
+	  to_html(:index,"<%= entity %>")
+  end
+  
   # Show a page where you can fill in details for adding a new <%= entity %> for a <%= @controller_name %>
   # HTTP GET at /<%= @controller_name %>/1/<%= entity %>/new
   get "/:id/<%= entity %>/new" do
     @<%= entity %> = <%= entity.capitalize %>.new
-	  to_html(:new)
+	  to_html(:new, "<%= entity %>")
   end
 
-  # Show all <%= entity.pluralize %> for a particular <%= @controller_name %>
-  # HTTP GET at /<%= @controller_name %>/1/<%= entity %>
-  get "/:id/<%= entity %>" do
-    @<%= entity.pluralize %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>
-    #to_xml(@<%= @controller_name %>)
-	  to_html(:show)
-  end
-  
   # Show the edit page for a particular <%= entity %> of a <%= @controller_name %>
   # HTTP GET at /<%= @controller_name %>/1/<%= entity %>/1/edit
   get "/:id/<%= entity %>/:id2/edit" do
     @<%= entity %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
     #to_xml(@<%= @controller_name %>)
-	  to_html(:edit)
+	  to_html(:edit, "<%= entity %>")
   end
   
   # Add a new <%= entity %> for a particular <%= @controller_name %>
@@ -31,7 +32,7 @@ class <%= @controller_name.capitalize %>Controller < RIPController
     @<%= entity %>.attributes = params[:<%= entity %>]
     @<%= entity %>.save
     #to_xml(@<%= entity %>)
-	  to_html(:show)
+	  to_html(:show, "<%= entity %>")
   end
   
   # Edit a particular <%= entity %> for a <%= @controller_name %>
@@ -40,7 +41,7 @@ class <%= @controller_name.capitalize %>Controller < RIPController
     @<%= entity %> = <%= @controller_name.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
     @<%= entity %>.update(params[:<%= entity %>])
     #to_xml(@<%= entity %>)
-	  to_html(:show)
+	  to_html(:show, "<%= entity %>")
   end
   
   # Delete a particular <%= entity %> for a <%= @controller_name %>
@@ -49,7 +50,7 @@ class <%= @controller_name.capitalize %>Controller < RIPController
     @<%= entity %> = <%= entity.capitalize %>.get(params[:id]).<%= entity.pluralize %>.get(params[:id2])
     @<%= entity %>.destroy!
     #to_xml(<%= entity %>)
-	  to_html(:index)
+	  to_html(:index, "<%= entity %>")
   end
   <% end %>
 
@@ -61,14 +62,6 @@ class <%= @controller_name.capitalize %>Controller < RIPController
 	  to_html(:index)
   end
 
-  # Show a particular <%= @controller_name %>
-  # HTTP GET at /<%= @controller_name %>/1
-  get "/:id" do
-    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
-    #to_xml(@<%= @controller_name %>)
-	  to_html(:show)
-  end
-
   # Show a page where you can fill in details for adding a new <%= @controller_name %>
   # HTTP GET at /<%= @controller_name %>/new
   get "/new" do
@@ -76,6 +69,13 @@ class <%= @controller_name.capitalize %>Controller < RIPController
 	  to_html(:new)
   end
 
+  # Show a particular <%= @controller_name %>
+  # HTTP GET at /<%= @controller_name %>/1
+  get "/:id" do
+    @<%= @controller_name %> = <%= @controller_name.capitalize %>.get(params[:id])
+    #to_xml(@<%= @controller_name %>)
+	  to_html(:show)
+  end
   
   # Show the edit page for a particular <%= @controller_name %>
   # HTTP GET at /<%= @controller_name %>/1/edit

@@ -1,11 +1,20 @@
 <h1>New <%= @view_name %></h1>
-<form action="/<%= @view_name %>" method="post" accept-charset="utf-8">
+<%% if @parent_entity %>
+  <form action="/<%%= @parent_entity %>/<%%= params[:id] %>/<%= @view_name %>" method="post" accept-charset="utf-8">
+  	<input type="hidden" id="<%= "#{@view_name}" %><%%= "_#{@parent_entity}_id" %>" name="<%= "#{@view_name}" %><%%= "[#{@parent_entity}_id]" %>" value="<%%= params[:id] %>" />
+<%% else %>
+  <form action="/<%= @view_name %>" method="post" accept-charset="utf-8">
+<%% end %>
 	<% @html_tags.each do |key, value| %>
 		<p>
 			<label for="<%= key %>"><%= key.capitalize %></label><br />
 			<input type="<%= value %>" name="<%= "#{@view_name}[#{key}]" %>" value="" id="<%= "#{@view_name}_#{key}" %>">
-		</p>		
+		</p>
 	<% end %>
 	<p><input type="submit" value="Submit &rarr;"></p>
-	<a href="/<%= @view_name %>">Back</a>
+  <%% if @parent_entity %>
+	  <a href="/<%%= @parent_entity %>/<%%= params[:id] %>/<%= @view_name %>">Back</a>
+	<%% else %>
+	  <a href="/<%= @view_name %>">Back</a>	  
+	<%% end %>	
 </form>
