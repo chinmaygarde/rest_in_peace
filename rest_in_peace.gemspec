@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chinmay Garde"]
-  s.date = %q{2010-03-31}
+  s.date = %q{2010-04-02}
   s.default_executable = %q{rip}
   s.description = %q{Minimal web framework with a focus on simplicity. Powered by Sinatra and DataMapper}
   s.email = %q{chinmaygarde@gmail.com}

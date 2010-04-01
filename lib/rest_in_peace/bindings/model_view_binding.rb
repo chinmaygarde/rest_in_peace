@@ -9,7 +9,7 @@ class ModelViewBinding
   def convert_associations_to_datamapper_statements
     @statements = Array.new unless @statements
     @associations.each do |entity_name, entity_type|
-      case entity_name
+      case entity_type
       when "has_many"
         @statements << "has n, :#{entity_name.pluralize}"
       when "belongs_to"
