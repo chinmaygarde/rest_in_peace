@@ -12,7 +12,7 @@ class Migration
       end
     end
     DataMapper.setup(:default, "sqlite3://#{settings.database_directory}/development.sqlite3")
-    DataMapper.auto_migrate!
+    DataMapper.auto_upgrade!
     puts "All #{count} Migrations Complete"
   end
   
