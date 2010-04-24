@@ -46,7 +46,10 @@ class Generator
     migration_file = File.open(File.join(settings.script_directory, "migrate"), "w")
     migration_file << File.open(File.join(settings.template_directory, "script", "migrate")).read
 
-    File.chmod(0755, define_file.path, server_file.path, migration_file.path)
+    cloud_file = File.open(File.join(settings.script_directory, "cloud"), "w")
+    cloud_file << File.open(File.join(settings.template_directory, "script", "cloud")).read
+
+    File.chmod(0755, define_file.path, server_file.path, migration_file.path, cloud_file.path)
     
     puts "Your project is six feet under at #{settings.project_root}"
   end
