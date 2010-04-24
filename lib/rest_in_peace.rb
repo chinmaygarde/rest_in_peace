@@ -13,3 +13,5 @@ autoload :ControllerViewBinding, 'rest_in_peace/bindings/controller_view_binding
 autoload :ViewBinding, 'rest_in_peace/bindings/view_binding'
 autoload :Bundler, 'bundler'
 autoload :YAML, 'yaml'
+autoload :RIPCloud, 'rest_in_peace/rip_cloud'
+autoload :Grit, 'grit'

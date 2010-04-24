@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'rest_in_peace'
+project_root = File.dirname(File.dirname(__FILE__))
+RIPCloud.new.deploy(project_root)
