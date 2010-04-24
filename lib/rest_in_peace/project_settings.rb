@@ -21,6 +21,7 @@ class ProjectSettings
     # Gem Specific Paths
     self.template_directory = File.join("#{File.dirname(__FILE__)}", "templates")
     
+    self
   end
   
 end

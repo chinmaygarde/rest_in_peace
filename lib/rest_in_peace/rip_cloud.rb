@@ -1,9 +1,7 @@
 class RIPCloud
   
-  attr_accessor :settings
-  
   def initialize(project_root)
-    settings = ProjectSettings.new(project_root)
+    @settings = ProjectSettings.new(project_root)
   end
   
   def deploy
@@ -11,7 +9,11 @@ class RIPCloud
     repo = create_git_repository
 
     # Commit latest changes
-    commit_latest_changes(repo)
+    if commit_latest_changes(repo)
+      puts "Commit made to Git repository"
+    else
+      puts "Failed to make commit to Git repository"
+    end
     
     # Create heroku application
     # Push changes to heroku
@@ -20,11 +22,18 @@ class RIPCloud
   end
   
   def create_git_repository
-    repo = Grit::Repo.new(settings.project_root)
+    
+    Dir.chdir(@settings.project_root) do
+      system("git init")
+    end
+
+    repo = Grit::Repo.new(@settings.project_root)
+    
   end
 
   def commit_latest_changes(repo)
-    repo.commit_index("Rest in Peace: Deployment to Heroku at #{Time.now.to_s}")
+    repo.add(@settings.project_root)
+    repo.commit_all("Rest in Peace: Deployment to Heroku at #{Time.now.to_s}")
   end
 
   def create_heroku_application
