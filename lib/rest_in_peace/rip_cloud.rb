@@ -10,12 +10,12 @@ class RIPCloud
 
     # Commit latest changes
     if commit_latest_changes(repo)
-      puts "Commit made to Git repository"
+      puts "Changes committed to git repository"
+      system "heroku create"
     else
       puts "Failed to make commit to Git repository"
     end
     
-    # Create heroku application
     # Push changes to heroku
     # Sync databases
     # Restart heroku app
@@ -23,8 +23,14 @@ class RIPCloud
   
   def create_git_repository
     
-    Dir.chdir(@settings.project_root) do
-      system("git init")
+    unless File.exists?(File.join(@settings.project_root, ".git"))
+      
+      Dir.chdir(@settings.project_root) do
+        system("git init")
+      end      
+      
+    else
+      puts "Git repository already exists"
     end
 
     repo = Grit::Repo.new(@settings.project_root)
