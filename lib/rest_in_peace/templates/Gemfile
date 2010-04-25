@@ -1,1 +1,7 @@
+source :gemcutter
 gem "rest_in_peace"
+gem "datamapper"
+gem "sinatra"
+gem "builder"
+gem "data_objects"
+gem "do_postgres"

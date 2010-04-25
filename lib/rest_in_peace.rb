@@ -2,7 +2,6 @@ require 'datamapper'
 require 'sinatra/base'
 require 'rest_in_peace/rip_controller'
 require 'active_support'
-require 'grit' # Need to work this out, grit is a development dependency
 autoload :Generator, 'rest_in_peace/generator'
 autoload :Builder, 'builder'
 autoload :ProjectSettings, 'rest_in_peace/project_settings'

@@ -2,4 +2,4 @@
 require 'rubygems'
 require 'rest_in_peace'
 project_root = File.dirname(File.dirname(__FILE__))
-ServerManager.new.start_server(project_root)
+ServerManager.new(project_root).start_server

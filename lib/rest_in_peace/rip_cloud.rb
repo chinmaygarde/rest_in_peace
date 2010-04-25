@@ -1,3 +1,4 @@
+require 'grit'
 class RIPCloud
   
   def initialize(project_root)
@@ -5,20 +6,50 @@ class RIPCloud
   end
   
   def deploy
-    # Create GIT REepository
+
+    create_rackup_config
+
+    migrate_databases
+
     repo = create_git_repository
 
-    # Commit latest changes
     if commit_latest_changes(repo)
+      
       puts "Changes committed to git repository"
-      system "heroku create"
+      
+      create_heroku_application unless heroku_remote_exists?
+
+      push_changes_to_heroku
+      
+      sync_databases
+      
     else
       puts "Failed to make commit to Git repository"
     end
     
-    # Push changes to heroku
-    # Sync databases
-    # Restart heroku app
+  end
+  
+  def create_rackup_config
+    ServerManager.new(@settings.project_root).create_rackup_config
+  end
+  
+  def migrate_databases
+    
+    Migration.new.migrate(@settings.project_root)
+    
+  end
+  
+  def heroku_remote_exists?
+    
+    exists = true # Pessimistic, dont want to create Heroku apps left and right
+    
+    Dir.chdir(@settings.project_root) do
+      remotes = `git remote show`
+      exists = false if remotes.match("heroku").to_s != "heroku"
+    end
+    
+    exists
+    
   end
   
   def create_git_repository
@@ -27,7 +58,7 @@ class RIPCloud
       
       Dir.chdir(@settings.project_root) do
         system("git init")
-      end      
+      end
       
     else
       puts "Git repository already exists"
@@ -44,18 +75,25 @@ class RIPCloud
 
   def create_heroku_application
     
+    Dir.chdir(@settings.project_root) do
+      heroku_app = @settings.get_config_options["heroku_app"] || ""
+      system "heroku create #{heroku_app} --stack bamboo-ree-1.8.7"
+    end
+    
   end
 
   def push_changes_to_heroku
     
+    Dir.chdir(@settings.project_root) do
+      system "git push heroku master"
+    end
+    
   end
   
   def sync_databases
-    
+    Dir.chdir(@settings.project_root) do
+      system "heroku db:push sqlite://#{@settings.database_directory}/development.sqlite3"
+    end    
   end
 
-  def restart_heroku_app
-    
-  end
-  
 end

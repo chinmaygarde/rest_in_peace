@@ -24,4 +24,8 @@ class ProjectSettings
     self
   end
   
+  def get_config_options
+    YAML::load(File.open(File.join(self.config_directory, "config.yml"), "r").read)
+  end
+  
 end

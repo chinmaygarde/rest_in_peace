@@ -1,3 +1,4 @@
 server_adapter: webrick
 server_port: 4567
 database_adapter: sqlite
+# heroku_app: my_rip_app
