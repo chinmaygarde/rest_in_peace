@@ -20,7 +20,19 @@ Getting Started
 		cd blogger
 	
 3. Generate model and controller
-		script/define Post title:string body:string
+		script/define Post title:string body:string has_many:comments
+		
+4. Add nested resources
+		script/define Comment body:string belongs_to:post
+
+To Deploy To The Cloud
+----------------------
+
+4. Deploy to Heroku
+		script/cloud
+
+For Local Development
+---------------------
 
 4. Migrate database
 		script/migrate
