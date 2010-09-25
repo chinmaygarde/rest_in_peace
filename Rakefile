@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rake'
-
+require 'spec/rake/spectask'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
@@ -15,9 +15,14 @@ begin
     gem.add_dependency "builder"
     gem.add_dependency "taps"
     gem.add_dependency "bundler"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
+
+desc "Run all specs"
+Spec::Rake::SpecTask.new('spec') do |t|
+  t.spec_files = FileList['spec/**/*.rb']
+  t.spec_opts = ["--color"]
 end
